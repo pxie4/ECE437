@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:48:16 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Wed Sep  4 09:50:20 2024
+# Process ID: 99132
+# Current directory: C:/Users/xieph/OneDrive/Desktop/ECE437/Lab2/Lab2.runs/impl_1
+# Command line: vivado.exe -log lab2_example.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source lab2_example.tcl -notrace
+# Log file: C:/Users/xieph/OneDrive/Desktop/ECE437/Lab2/Lab2.runs/impl_1/lab2_example.vdi
+# Journal file: C:/Users/xieph/OneDrive/Desktop/ECE437/Lab2/Lab2.runs/impl_1\vivado.jou
+# Running On: PhilsLegion, OS: Windows, CPU Frequency: 3793 MHz, CPU Physical cores: 16, Host memory: 16435 MB
+#-----------------------------------------------------------
+source lab2_example.tcl -notrace
