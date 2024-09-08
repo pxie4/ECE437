@@ -1,0 +1,5 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/Desktop/ECE437/Lab3/Lab3.sim/sim_1/synth/timing/xsim/lab3_TestBench_time_synth.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module lab3_example
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/Desktop/ECE437/Lab3/lab3_TestBench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module lab3_TestBench
