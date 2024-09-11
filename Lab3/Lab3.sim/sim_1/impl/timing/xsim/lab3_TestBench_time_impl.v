@@ -1,7 +1,7 @@
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
-// Date        : Sun Sep  8 00:11:57 2024
+// Date        : Wed Sep 11 09:47:19 2024
 // Host        : ECEB-4022-03 running 64-bit major release  (build 9200)
 // Command     : write_verilog -mode timesim -nolib -sdf_anno true -force -file
 //               U:/Desktop/ECE437/Lab3/Lab3.sim/sim_1/impl/timing/xsim/lab3_TestBench_time_impl.v
