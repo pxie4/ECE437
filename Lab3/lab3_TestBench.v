@@ -7,7 +7,6 @@ module lab3_TestBench();
     wire sys_clkp;
     wire [7:0] led;
     reg [3:0] button;
-    
     //Invoke the module that we like to test
     lab3_example ModuleUnderTest (.button(button),.led(led),.sys_clkn(sys_clkn),.sys_clkp(sys_clkp));
     
@@ -19,22 +18,10 @@ module lab3_TestBench();
     always begin
         #5 sys_clkn = ~sys_clkn;
     end        
-      
-    initial begin          
-            #0 button <= 4'b1111;                                                      
-            #200 button <= 4'b1111; // init
-            #20 button <= 4'b1011; // alpha
-            #20 button <= 4'b1101; // init
-            #20 button <= 4'b1011; // alpha
-            #20 button <= 4'b0111; // charlie
-            #20 button <= 4'b1101; // init
-            #20 button <= 4'b0111; // bravo
-            #20 button <= 4'b1101; // init
-            #20 button <= 4'b0111; // bravo
-            #20 button <= 4'b1011; // charlie
-            #20 button <= 4'b1101; // init
-            #20 button <= 4'b1011; // alpha
-            #20 button <= 4'b0001; // init           
+    
+    initial begin
+        #20 button = 3'b1111;
+        #10 button = 3'b1110;
+        #10 button = 3'b1111;
     end
-
 endmodule

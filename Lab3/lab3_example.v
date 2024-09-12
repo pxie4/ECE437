@@ -1,12 +1,6 @@
 `timescale 1ns / 1ps
 module lab3_example(
     // Part of Milestone 2: Enable WireIn
-    input wire [4:0] okHU,
-    output wire [2:0] okUH,
-    inout wire [31:0] okUHU,
-    inout wire okAA,
-    input wire reset, //not sure if needed
-    //
     input [3:0] button,
     output [7:0] led,
     input sys_clkn,
@@ -78,26 +72,7 @@ module lab3_example(
 // Milestone 2:
 //
     //
-//    wire okClk;
-//    wire [112:0] okHE;
-//    wire [64:0] okEH;
-    wire ped_light;
-    
-//    okHost hostIF (
-//        .okUH(okUH),
-//        .okHU(okHU),
-//        .okUHU(okUHU),
-//        .okClk(okClk),
-//        .okAA(okAA),
-//        .okHE(okHE),
-//        .okEH(okEH)
-//    );
-    
-//    okWireIn ped (
-//        .okHE(okHE),
-//        .ep_addr(8'h00),
-//        .ep_dataout(ped_light)
-//    );
+
     
     //
     reg [2:0] cnt; // only needs to count to 6
@@ -105,8 +80,8 @@ module lab3_example(
     reg slow_clk;
     reg [31:0] clkdiv;
     wire clk;
-    wire state;
-    
+    reg [2:0] state, prev_state;
+    reg ped_light;
     
     IBUFGDS osc_clk(
         .O(clk),
@@ -124,59 +99,83 @@ module lab3_example(
     end
     
     always @(posedge clk) begin
+        //button latching
+        if (ped_light == 1'b0 && !button[0]) begin
+            ped_light <= 1'b1;
+        end
         clkdiv <= clkdiv + 1;
         if (clkdiv == 50000000) begin
             slow_clk <= ~slow_clk;
             clkdiv <= 0;
+        end
     end
     
-    always @(posedge slow_clk) begin
-//        cnt <= cnt + 1;
-//        if (cnt == 6) begin
-//            cnt <= 0;
-//        end
-//        if (button) begin
-//            cnt <= cnt + 1;
-//        end
-    end
     
+    assign led = ~led_reg;
     // led[7:0] {R3, G3, R2, Y2, G2, R1, Y1, G1}
-    intial begin
-        state <= C1_G;
-    end
     always @(posedge slow_clk) begin
-        case (state)
+            case (state)
             C1_G: begin
-                led_reg <= 8'b00100001;
-                if (cnt == 2) begin
-                    state <= C1_Y;
-                    cnt <= 0;
-                    end
-                if (cnt < 2) begin
-                    state <= C1_G;
-                    cnt <= cnt + 1;
-            end
-            C1_Y: begin
-                led_reg <= 8'b00100010;
-                if (cnt == 2) begin
+                led_reg <= 8'b10_100_001;
+                if (cnt == 1) begin
                     state <= C1_Y;
                     cnt <= 0;
                     end
                 if (cnt < 1) begin
+                    state <= C1_G;
                     cnt <= cnt + 1;
+                end
+            end
+            C1_Y: begin
+                led_reg <= 8'b10_100_010;
+                if ((button[0] || !ped_light) && cnt == 0) begin
+                    state <= C2_G;
+                    cnt <= 0;
+                    end
+                else if ((!button[0] || ped_light) && cnt == 0) begin
+                    ped_light <= 1'b0;
+                    state <= P_G;
+                    cnt <= 0;
+                    prev_state <= state;
+                    end
             end
             C2_G: begin
-                led_reg <= {};
+                led_reg <= 8'b10_001_100;
+                if (cnt == 1) begin
+                    state <= C2_Y;
+                    cnt <= 0;
+                    end
+                if (cnt < 1) begin
+                    state <= C2_G;
+                    cnt <= cnt + 1;
+                end
             end
             C2_Y: begin
-                led_reg <= {};
+                led_reg <= 8'b10_010_100;
+                if ((button[0] || !ped_light) && cnt == 0) begin
+                    state <= C1_G;
+                    cnt <= 0;
+                    end
+                else if ((!button[0] || ped_light) && cnt == 0) begin
+                    ped_light <= 1'b0;
+                    state <= P_G;
+                    cnt <= 0;
+                    prev_state <= state;
+                    end
             end
             P_G: begin
-                led_reg <= {};
+                led_reg <= 8'b01_100_100;
+                if (cnt == 6) begin
+                    state <= prev_state;
+                    cnt <= 0;
+                    end
+                if (cnt < 6) begin
+                    state <= P_G;
+                    cnt <= cnt + 1;
+                end
             end
-          
-            
-            default:
+         
+            default: state <= C1_G;
         endcase
     end
 endmodule
