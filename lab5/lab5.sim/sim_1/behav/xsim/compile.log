@@ -1,0 +1,20 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/Desktop/ECE437/lab5/lab5.gen/sources_1/ip/ila_0/sim/ila_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ila_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/Desktop/ECE437/lab5/ClockGenerator.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ClockGenerator
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/Desktop/ECE437/lab5/I2C_Transmit.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module I2C_Transmit
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/Desktop/ECE437/lab5/lab5.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module okCore
+INFO: [VRFC 10-311] analyzing module okCoreHarness
+INFO: [VRFC 10-311] analyzing module ok_tfifo
+INFO: [VRFC 10-311] analyzing module fifo_generator_v13_2_5
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/Desktop/ECE437/lab5/lab5.srcs/sources_1/imports/Vivado-2021/okLibrary.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module okHost
+INFO: [VRFC 10-311] analyzing module okWireOR
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/Desktop/ECE437/lab5/lab5.srcs/sources_1/imports/Vivado-2021/okWireIn.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module okWireIn
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/Desktop/ECE437/lab5/JTEG_Test_File.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module JTEG_Test_File
+ERROR: [VRFC 10-8414] extra comma in port association list is not allowed [U:/Desktop/ECE437/lab5/JTEG_Test_File.v:45]
+ERROR: [VRFC 10-8530] module 'JTEG_Test_File' is ignored due to previous errors [U:/Desktop/ECE437/lab5/JTEG_Test_File.v:3]

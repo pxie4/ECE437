@@ -10,18 +10,23 @@
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 
 source JTEG_Test_File.tcl -notrace
+Command: read_checkpoint -auto_incremental -incremental U:/Desktop/ECE437/lab5/lab5.srcs/utils_1/imports/synth_1/JTEG_Test_File.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from U:/Desktop/ECE437/lab5/lab5.srcs/utils_1/imports/synth_1/JTEG_Test_File.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
 Command: synth_design -top JTEG_Test_File -part xc7a75tfgg484-1
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a75t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a75t'
 INFO: [Device 21-403] Loading part xc7a75tfgg484-1
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 11612
+INFO: [Synth 8-7075] Helper process launched with PID 17472
 INFO: [Synth 8-11241] undeclared symbol 'REGCCE', assumed default net type 'wire' [C:/Xilinx/Vivado/2022.2/data/verilog/src/unimacro/BRAM_SINGLE_MACRO.v:2170]
-INFO: [Synth 8-11241] undeclared symbol 'okClk', assumed default net type 'wire' [U:/Desktop/ECE437/lab5/I2C_Transmit.v:318]
+INFO: [Synth 8-11241] undeclared symbol 'okClk', assumed default net type 'wire' [U:/Desktop/ECE437/lab5/I2C_Transmit.v:475]
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1859.242 ; gain = 408.195
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1860.367 ; gain = 408.488
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'JTEG_Test_File' [U:/Desktop/ECE437/lab5/JTEG_Test_File.v:3]
 INFO: [Synth 8-6157] synthesizing module 'I2C_Transmit' [U:/Desktop/ECE437/lab5/I2C_Transmit.v:3]
@@ -247,13 +252,13 @@ INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized41' (0#1) [C:/
 INFO: [Synth 8-6155] done synthesizing module 'LUT6__parameterized42' (0#1) [C:/Xilinx/Vivado/2022.2/scripts/rt/data/unisim_comp.v:79181]
 INFO: [Synth 8-6155] done synthesizing module 'DNA_PORT' (0#1) [C:/Xilinx/Vivado/2022.2/scripts/rt/data/unisim_comp.v:36967]
 INFO: [Common 17-14] Message 'Synth 8-6155' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
-WARNING: [Synth 8-7071] port 'dna' of module 'okHost' is unconnected for instance 'hostIF' [U:/Desktop/ECE437/lab5/I2C_Transmit.v:314]
-WARNING: [Synth 8-7071] port 'dna_valid' of module 'okHost' is unconnected for instance 'hostIF' [U:/Desktop/ECE437/lab5/I2C_Transmit.v:314]
-WARNING: [Synth 8-7023] instance 'hostIF' of module 'okHost' has 9 connections declared, but only 7 given [U:/Desktop/ECE437/lab5/I2C_Transmit.v:314]
-WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [U:/Desktop/ECE437/lab5/JTEG_Test_File.v:48]
-WARNING: [Synth 8-3848] Net okEH in module/entity I2C_Transmit does not have driver. [U:/Desktop/ECE437/lab5/I2C_Transmit.v:311]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'I2C_Test1'. This will prevent further optimization [U:/Desktop/ECE437/lab5/JTEG_Test_File.v:26]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'ila_sample12'. This will prevent further optimization [U:/Desktop/ECE437/lab5/JTEG_Test_File.v:48]
+WARNING: [Synth 8-7071] port 'dna' of module 'okHost' is unconnected for instance 'hostIF' [U:/Desktop/ECE437/lab5/I2C_Transmit.v:471]
+WARNING: [Synth 8-7071] port 'dna_valid' of module 'okHost' is unconnected for instance 'hostIF' [U:/Desktop/ECE437/lab5/I2C_Transmit.v:471]
+WARNING: [Synth 8-7023] instance 'hostIF' of module 'okHost' has 9 connections declared, but only 7 given [U:/Desktop/ECE437/lab5/I2C_Transmit.v:471]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [U:/Desktop/ECE437/lab5/JTEG_Test_File.v:52]
+WARNING: [Synth 8-3848] Net okEH in module/entity I2C_Transmit does not have driver. [U:/Desktop/ECE437/lab5/I2C_Transmit.v:468]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'I2C_Test1'. This will prevent further optimization [U:/Desktop/ECE437/lab5/JTEG_Test_File.v:27]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'ila_sample12'. This will prevent further optimization [U:/Desktop/ECE437/lab5/JTEG_Test_File.v:52]
 WARNING: [Synth 8-7129] Port okHE[112] in module okWireIn is either unconnected or has no load
 WARNING: [Synth 8-7129] Port okHE[111] in module okWireIn is either unconnected or has no load
 WARNING: [Synth 8-7129] Port okHE[110] in module okWireIn is either unconnected or has no load
@@ -356,18 +361,18 @@ WARNING: [Synth 8-7129] Port prog_full_thresh[1] in module fifo_generator_v13_2_
 WARNING: [Synth 8-7129] Port prog_full_thresh[0] in module fifo_generator_v13_2_5 is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 1981.051 ; gain = 530.004
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 1985.586 ; gain = 533.707
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 1981.051 ; gain = 530.004
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 1985.586 ; gain = 533.707
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 1981.051 ; gain = 530.004
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 1985.586 ; gain = 533.707
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.026 . Memory (MB): peak = 1981.051 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.030 . Memory (MB): peak = 1985.586 ; gain = 0.000
 INFO: [Netlist 29-17] Analyzing 147 Unisim elements for replacement
 WARNING: [Netlist 29-432] The IBUFG primitive 'I2C_Test1/hostIF/hi_clk_bufg' has been retargeted to an IBUF primitive only. No BUFG will be added. If a global buffer is intended, please instantiate an available global clock primitive from the current architecture.
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
@@ -488,7 +493,7 @@ INFO: [Project 1-236] Implementation specific constraints were found while readi
 Resolution: To avoid this warning, move constraints listed in [.Xil/JTEG_Test_File_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2068.816 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 2029.805 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 98 instances were transformed.
   IBUFG => IBUF: 1 instance 
@@ -499,27 +504,29 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   RAM128X1S => RAM128X1S (MUXF7, RAMS64E(x2)): 8 instances
   RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 4 instances
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.024 . Memory (MB): peak = 2068.816 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.027 . Memory (MB): peak = 2029.805 ; gain = 0.000
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-11241] undeclared symbol 'REGCCE', assumed default net type 'wire' [C:/Xilinx/Vivado/2022.2/data/verilog/src/unimacro/BRAM_SINGLE_MACRO.v:2170]
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:12 ; elapsed = 00:00:16 . Memory (MB): peak = 2068.816 ; gain = 617.770
+Finished Constraint Validation : Time (s): cpu = 00:00:12 ; elapsed = 00:00:16 . Memory (MB): peak = 2029.805 ; gain = 577.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a75tfgg484-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:12 ; elapsed = 00:00:16 . Memory (MB): peak = 2068.816 ; gain = 617.770
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:12 ; elapsed = 00:00:16 . Memory (MB): peak = 2029.805 ; gain = 577.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 Applied set_property KEEP_HIERARCHY = SOFT for ila_sample12. (constraint file  auto generated constraint).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:16 . Memory (MB): peak = 2068.816 ; gain = 617.770
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:16 . Memory (MB): peak = 2029.805 ; gain = 577.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:17 . Memory (MB): peak = 2068.816 ; gain = 617.770
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:18 . Memory (MB): peak = 2029.805 ; gain = 577.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -642,25 +649,25 @@ WARNING: [Synth 8-3332] Sequential element (lf38b0951701b1c1d5bc7a746e996b3c6_re
 WARNING: [Synth 8-3332] Sequential element (hostIF/iob_regs[16].regin0) is unused and will be removed from module I2C_Transmit.
 INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:20 . Memory (MB): peak = 2068.816 ; gain = 617.770
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:15 ; elapsed = 00:00:21 . Memory (MB): peak = 2029.805 ; gain = 577.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:18 ; elapsed = 00:00:24 . Memory (MB): peak = 2068.816 ; gain = 617.770
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:19 ; elapsed = 00:00:25 . Memory (MB): peak = 2029.805 ; gain = 577.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:18 ; elapsed = 00:00:24 . Memory (MB): peak = 2068.816 ; gain = 617.770
+Finished Timing Optimization : Time (s): cpu = 00:00:19 ; elapsed = 00:00:25 . Memory (MB): peak = 2029.805 ; gain = 577.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:18 ; elapsed = 00:00:25 . Memory (MB): peak = 2068.816 ; gain = 617.770
+Finished Technology Mapping : Time (s): cpu = 00:00:19 ; elapsed = 00:00:25 . Memory (MB): peak = 2029.805 ; gain = 577.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -678,37 +685,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 2068.816 ; gain = 617.770
+Finished IO Insertion : Time (s): cpu = 00:00:22 ; elapsed = 00:00:29 . Memory (MB): peak = 2029.805 ; gain = 577.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 2068.816 ; gain = 617.770
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:22 ; elapsed = 00:00:29 . Memory (MB): peak = 2029.805 ; gain = 577.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 2068.816 ; gain = 617.770
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:22 ; elapsed = 00:00:29 . Memory (MB): peak = 2029.805 ; gain = 577.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 2068.816 ; gain = 617.770
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:22 ; elapsed = 00:00:29 . Memory (MB): peak = 2029.805 ; gain = 577.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 2068.816 ; gain = 617.770
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:22 ; elapsed = 00:00:29 . Memory (MB): peak = 2029.805 ; gain = 577.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 2068.816 ; gain = 617.770
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:22 ; elapsed = 00:00:29 . Memory (MB): peak = 2029.805 ; gain = 577.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -730,11 +737,11 @@ Report Cell Usage:
 |3     |CARRY4      |    54|
 |4     |DNA_PORT    |     1|
 |5     |LUT1        |    60|
-|6     |LUT2        |    36|
-|7     |LUT3        |    40|
-|8     |LUT4        |    98|
-|9     |LUT5        |   124|
-|10    |LUT6        |   388|
+|6     |LUT2        |    42|
+|7     |LUT3        |    60|
+|8     |LUT4        |   103|
+|9     |LUT5        |   127|
+|10    |LUT6        |   406|
 |12    |MMCME2_BASE |     1|
 |13    |RAM128X1S   |     8|
 |14    |RAM32M      |     4|
@@ -742,7 +749,7 @@ Report Cell Usage:
 |17    |RAMB36E1    |     1|
 |18    |FDCE        |   134|
 |19    |FDPE        |    27|
-|20    |FDRE        |   601|
+|20    |FDRE        |   617|
 |21    |FDSE        |     7|
 |22    |IBUF        |     4|
 |23    |IBUFG       |     1|
@@ -752,20 +759,19 @@ Report Cell Usage:
 |27    |OBUFT       |     6|
 +------+------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 2068.816 ; gain = 617.770
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:22 ; elapsed = 00:00:29 . Memory (MB): peak = 2029.805 ; gain = 577.926
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 705 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:14 ; elapsed = 00:00:26 . Memory (MB): peak = 2068.816 ; gain = 530.004
-Synthesis Optimization Complete : Time (s): cpu = 00:00:22 ; elapsed = 00:00:28 . Memory (MB): peak = 2068.816 ; gain = 617.770
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:14 ; elapsed = 00:00:26 . Memory (MB): peak = 2029.805 ; gain = 533.707
+Synthesis Optimization Complete : Time (s): cpu = 00:00:22 ; elapsed = 00:00:29 . Memory (MB): peak = 2029.805 ; gain = 577.926
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.020 . Memory (MB): peak = 2068.816 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.020 . Memory (MB): peak = 2029.805 ; gain = 0.000
 INFO: [Netlist 29-17] Analyzing 156 Unisim elements for replacement
 WARNING: [Netlist 29-432] The IBUFG primitive 'I2C_Test1/hostIF/hi_clk_bufg' has been retargeted to an IBUF primitive only. No BUFG will be added. If a global buffer is intended, please instantiate an available global clock primitive from the current architecture.
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
-WARNING: [Netlist 29-101] Netlist 'JTEG_Test_File' is not ideal for floorplanning, since the cellview 'okCore' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2068.816 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2029.805 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 99 instances were transformed.
   IBUFG => IBUF: 1 instance 
@@ -776,11 +782,13 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   RAM128X1S => RAM128X1S (MUXF7, RAMS64E(x2)): 8 instances
   RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 4 instances
 
-Synth Design complete, checksum: 945abf62
+Synth Design complete, checksum: 571e0ced
 INFO: [Common 17-83] Releasing license: Synthesis
-228 Infos, 325 Warnings, 0 Critical Warnings and 0 Errors encountered.
+234 Infos, 324 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:25 ; elapsed = 00:00:34 . Memory (MB): peak = 2068.816 ; gain = 1002.898
+synth_design: Time (s): cpu = 00:00:26 ; elapsed = 00:00:34 . Memory (MB): peak = 2029.805 ; gain = 962.762
+INFO: [Common 17-600] The following parameters have non-default value.
+tcl.collectionResultDisplayLimit
 INFO: [Common 17-1381] The checkpoint 'U:/Desktop/ECE437/lab5/lab5.runs/synth_1/JTEG_Test_File.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file JTEG_Test_File_utilization_synth.rpt -pb JTEG_Test_File_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Sat Sep 21 17:50:52 2024...
+INFO: [Common 17-206] Exiting Vivado at Wed Sep 25 15:18:27 2024...

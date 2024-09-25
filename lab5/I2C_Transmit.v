@@ -18,7 +18,11 @@ module I2C_Transmit(
     input  wire    [4:0] okUH,
     output wire    [2:0] okHU,
     inout  wire    [31:0] okUHU,   
-    inout wire okAA     
+    inout wire okAA,
+    // ---------------------------
+    output wire [12:0] temp,
+    output wire error
+         
     );
     
     //Instantiate the ClockGenerator module, where three signals are generate:
@@ -31,10 +35,15 @@ module I2C_Transmit(
                                       .FSM_Clk(FSM_Clk),                                      
                                       .ILA_Clk(ILA_Clk) );
                                         
-    reg [7:0] SingleByteData = 8'b1001_0001;        
+    reg [6:0] bus_address_R = 7'b1001_000;        
+    reg [7:0] temp_reg_msb =  8'b0000_0000;
+    reg [15:0] temp_val = 16'h00;
+    reg [2:0] data_state = 3'b000;
     reg error_bit = 1'b1;      
-       
-    localparam STATE_INIT       = 8'd0;    
+    assign temp = temp_val[15:3];
+    assign error = error_bit;
+    
+    localparam STATE_INIT = 8'd0;    
     assign led[7] = ACK_bit;
     assign led[6] = error_bit;
     assign ADT7420_A0 = 1'b0;
@@ -58,10 +67,14 @@ module I2C_Transmit(
         case (State)
             // Press Button[3] to start the state machine. Otherwise, stay in the STATE_INIT state        
             STATE_INIT : begin
-                 if (PC_control[0] == 1'b1) State <= 8'd1;                    
-                 else begin                 
+                 if (PC_control[0] == 1'b1) begin
+                    State <= 8'd1;   
+                    SCL <= 1'b1;
+                    SDA <= 1'b1;                 
+                 end else begin  
+                      SDA <= 1'b1;               
                       SCL <= 1'b1;
-                      SDA <= 1'b1;
+                      
                       State <= 8'd0;
                   end
             end            
@@ -82,7 +95,19 @@ module I2C_Transmit(
             // transmit bit 7   
             8'd3 : begin
                   SCL <= 1'b0;
-                  SDA <= SingleByteData[7];
+                  
+                  if (data_state == 0) begin 
+                    SDA <= bus_address_R[6];
+                  end else if (data_state == 1) begin 
+                    SDA <= temp_reg_msb[7];
+                  end else if (data_state == 2) begin
+                    SDA <= bus_address_R[6];
+                  end else if (data_state == 3) begin
+                    SDA <= 1'bz;
+                  end else if (data_state == 4) begin
+                    SDA <= 1'bz;
+                  end
+                  
                   State <= State + 1'b1;                 
             end   
 
@@ -93,6 +118,11 @@ module I2C_Transmit(
 
             8'd5 : begin
                   SCL <= 1'b1;
+                  if (data_state == 3) begin
+                    temp_val[15] <= SDA;
+                  end else if (data_state == 4) begin
+                    temp_val[7] <= SDA ;
+                  end
                   State <= State + 1'b1;
             end   
 
@@ -104,7 +134,19 @@ module I2C_Transmit(
             // transmit bit 6
             8'd7 : begin
                   SCL <= 1'b0;
-                  SDA <= SingleByteData[6];  
+                  
+                  if (data_state == 0) begin 
+                    SDA <= bus_address_R[5];
+                  end else if (data_state == 1) begin 
+                    SDA <= temp_reg_msb[6];
+                  end else if (data_state == 2) begin
+                    SDA <= bus_address_R[5];
+                  end else if (data_state == 3) begin
+                    SDA <= 1'bz;
+                  end else if (data_state == 4) begin
+                    SDA <= 1'bz;
+                  end
+                  
                   State <= State + 1'b1;               
             end   
 
@@ -115,6 +157,12 @@ module I2C_Transmit(
 
             8'd9 : begin
                   SCL <= 1'b1;
+                  if (data_state == 3) begin
+                    temp_val[14] <= SDA;
+                  end else if (data_state == 4) begin
+                    temp_val[6] <= SDA ;
+                  end 
+                  
                   State <= State + 1'b1;
             end   
 
@@ -126,7 +174,17 @@ module I2C_Transmit(
             // transmit bit 5
             8'd11 : begin
                   SCL <= 1'b0;
-                  SDA <= SingleByteData[5]; 
+                  if (data_state == 0) begin 
+                    SDA <= bus_address_R[4];
+                  end else if (data_state == 1) begin 
+                    SDA <= temp_reg_msb[5];
+                  end else if (data_state == 2) begin
+                    SDA <= bus_address_R[4];
+                  end else if (data_state == 3) begin
+                    SDA <= 1'bz;
+                  end else if (data_state == 4) begin
+                    SDA <= 1'bz;
+                  end
                   State <= State + 1'b1;                
             end   
 
@@ -137,6 +195,11 @@ module I2C_Transmit(
 
             8'd13 : begin
                   SCL <= 1'b1;
+                  if (data_state == 3) begin
+                    temp_val[13] <= SDA;
+                  end else if (data_state == 4) begin
+                    temp_val[5] <= SDA ;
+                  end
                   State <= State + 1'b1;
             end   
 
@@ -148,7 +211,17 @@ module I2C_Transmit(
             // transmit bit 4
             8'd15 : begin
                   SCL <= 1'b0;
-                  SDA <= SingleByteData[4]; 
+                  if (data_state == 0) begin 
+                    SDA <= bus_address_R[3];
+                  end else if (data_state == 1) begin 
+                    SDA <= temp_reg_msb[4];
+                  end else if (data_state == 2) begin
+                    SDA <= bus_address_R[3];
+                  end else if (data_state == 3) begin
+                    SDA <= 1'bz;
+                  end else if (data_state == 4) begin
+                    SDA <= 1'bz;
+                  end
                   State <= State + 1'b1;                
             end   
 
@@ -159,6 +232,11 @@ module I2C_Transmit(
 
             8'd17 : begin
                   SCL <= 1'b1;
+                  if (data_state == 3) begin
+                    temp_val[12] <= SDA;
+                  end else if (data_state == 4) begin
+                    temp_val[4] <= SDA ;
+                  end
                   State <= State + 1'b1;
             end   
 
@@ -170,7 +248,17 @@ module I2C_Transmit(
             // transmit bit 3
             8'd19 : begin
                   SCL <= 1'b0;
-                  SDA <= SingleByteData[3]; 
+                  if (data_state == 0) begin 
+                    SDA <= bus_address_R[2];
+                  end else if (data_state == 1) begin 
+                    SDA <= temp_reg_msb[3];
+                  end else if (data_state == 2) begin
+                    SDA <= bus_address_R[2];
+                  end else if (data_state == 3) begin
+                    SDA <= 1'bz;
+                  end else if (data_state == 4) begin
+                    SDA <= 1'bz;
+                  end
                   State <= State + 1'b1;                
             end   
 
@@ -181,6 +269,11 @@ module I2C_Transmit(
 
             8'd21 : begin
                   SCL <= 1'b1;
+                  if (data_state == 3) begin
+                    temp_val[11] <= SDA;
+                  end else if (data_state == 4) begin
+                    temp_val[3] <= SDA ;
+                  end
                   State <= State + 1'b1;
             end   
 
@@ -192,7 +285,17 @@ module I2C_Transmit(
             // transmit bit 2
             8'd23 : begin
                   SCL <= 1'b0;
-                  SDA <= SingleByteData[2]; 
+                  if (data_state == 0) begin 
+                    SDA <= bus_address_R[1];
+                  end else if (data_state == 1) begin 
+                    SDA <= temp_reg_msb[2];
+                  end  else if (data_state == 2) begin
+                    SDA <= bus_address_R[1];
+                  end else if (data_state == 3) begin
+                    SDA <= 1'bz;
+                  end else if (data_state == 4) begin
+                    SDA <= 1'bz;
+                  end
                   State <= State + 1'b1;                
             end   
 
@@ -203,6 +306,11 @@ module I2C_Transmit(
 
             8'd25 : begin
                   SCL <= 1'b1;
+                  if (data_state == 3) begin
+                    temp_val[10] <= SDA;
+                  end else if (data_state == 4) begin
+                    temp_val[2] <= SDA ;
+                  end
                   State <= State + 1'b1;
             end   
 
@@ -214,7 +322,17 @@ module I2C_Transmit(
             // transmit bit 1
             8'd27 : begin
                   SCL <= 1'b0;
-                  SDA <= SingleByteData[1];  
+                  if (data_state == 0) begin 
+                    SDA <= bus_address_R[0];
+                  end else if (data_state == 1) begin 
+                    SDA <= temp_reg_msb[1];
+                  end else if (data_state == 2) begin
+                    SDA <= bus_address_R[0];
+                  end else if (data_state == 3) begin
+                    SDA <= 1'bz;
+                  end else if (data_state == 4) begin
+                    SDA <= 1'bz;
+                  end  
                   State <= State + 1'b1;               
             end   
 
@@ -225,6 +343,11 @@ module I2C_Transmit(
 
             8'd29 : begin
                   SCL <= 1'b1;
+                  if (data_state == 3) begin
+                    temp_val[9] <= SDA;
+                  end else if (data_state == 4) begin
+                    temp_val[1] <= SDA ;
+                  end
                   State <= State + 1'b1;
             end   
 
@@ -236,7 +359,17 @@ module I2C_Transmit(
             // transmit bit 0
             8'd31 : begin
                   SCL <= 1'b0;
-                  SDA <= SingleByteData[0];      
+                  if (data_state == 0) begin 
+                    SDA <= 0; // Write
+                  end else if (data_state == 1) begin 
+                    SDA <= temp_reg_msb[0];
+                  end  else if (data_state == 2) begin
+                    SDA <= 1; // Read
+                  end else if (data_state == 3) begin
+                    SDA <= 1'bz;
+                  end else if (data_state == 4) begin
+                    SDA <= 1'bz;
+                  end       
                   State <= State + 1'b1;           
             end   
 
@@ -247,6 +380,11 @@ module I2C_Transmit(
 
             8'd33 : begin
                   SCL <= 1'b1;
+                  if (data_state == 3) begin
+                    temp_val[8] <= SDA;
+                  end else if (data_state == 4) begin
+                    temp_val[0] <= SDA ;
+                  end
                   State <= State + 1'b1;
             end   
 
@@ -258,7 +396,11 @@ module I2C_Transmit(
             // read the ACK bit from the sensor and display it on LED[7]
             8'd35 : begin
                   SCL <= 1'b0;
-                  SDA <= 1'bz;
+                  if (data_state != 4) begin
+                    SDA <= 1'bz;
+                  end else if (data_state == 4) begin
+                    SDA <= 1;
+                  end
                   State <= State + 1'b1;                 
             end   
 
@@ -269,13 +411,28 @@ module I2C_Transmit(
 
             8'd37 : begin
                   SCL <= 1'b1;
-                  ACK_bit <= SDA;                 
+                  if (data_state != 4) begin
+                    ACK_bit <= SDA;
+                  end 
+                                   
                   State <= State + 1'b1;
             end   
 
-            8'd38 : begin
-                  SCL <= 1'b0;
-                  State <= State + 1'b1;
+            8'd38 : begin          
+                  data_state <= data_state + 1;
+                  if (data_state == 1) begin
+                    SCL <= 1'b0;
+                    SDA <= 1;
+                    State <= STATE_INIT;
+                  end if (data_state < 4 && data_state != 1) begin
+                    SCL <= 1'b0;
+                    SDA <= 0;                    
+                    State <= 3;
+                  end else if (data_state == 4) begin
+                    SCL <= 1'b0;
+                    SDA <= 0;
+                    State <= State + 1'b1;
+                  end
             end  
             
             //stop bit sequence and go back to STATE_INIT           
@@ -294,7 +451,7 @@ module I2C_Transmit(
             8'd41 : begin
                   SCL <= 1'b1;
                   SDA <= 1'b1;
-                 // State <= STATE_INIT;                  
+                  //State <= STATE_INIT;                  
             end              
             
             //If the FSM ends up in this state, there was an error in teh FSM code

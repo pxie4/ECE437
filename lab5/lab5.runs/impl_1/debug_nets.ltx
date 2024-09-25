@@ -35,7 +35,7 @@
                                 "portIndex": 0,
                                 "nets": [
                                     {
-                                        "name": "ACK_bit",
+                                        "name": "error",
                                         "isBus": false
                                     }
                                 ]
@@ -47,12 +47,53 @@
                                 "direction": "IN",
                                 "isVector": true,
                                 "leftIndex": 1,
-                                "rightIndex": 1,
+                                "rightIndex": 13,
                                 "portIndex": 0,
                                 "nets": [
                                     {
-                                        "name": "SCL",
-                                        "isBus": false
+                                        "name": "temp",
+                                        "isBus": true,
+                                        "subnets": [
+                                            {
+                                                "name": "temp[12]"
+                                            },
+                                            {
+                                                "name": "temp[11]"
+                                            },
+                                            {
+                                                "name": "temp[10]"
+                                            },
+                                            {
+                                                "name": "temp[9]"
+                                            },
+                                            {
+                                                "name": "temp[8]"
+                                            },
+                                            {
+                                                "name": "temp[7]"
+                                            },
+                                            {
+                                                "name": "temp[6]"
+                                            },
+                                            {
+                                                "name": "temp[5]"
+                                            },
+                                            {
+                                                "name": "temp[4]"
+                                            },
+                                            {
+                                                "name": "temp[3]"
+                                            },
+                                            {
+                                                "name": "temp[2]"
+                                            },
+                                            {
+                                                "name": "temp[1]"
+                                            },
+                                            {
+                                                "name": "temp[0]"
+                                            }
+                                        ]
                                     }
                                 ]
                             },
@@ -62,12 +103,12 @@
                                 "type": "DATA",
                                 "direction": "IN",
                                 "isVector": true,
-                                "leftIndex": 2,
-                                "rightIndex": 2,
+                                "leftIndex": 14,
+                                "rightIndex": 14,
                                 "portIndex": 0,
                                 "nets": [
                                     {
-                                        "name": "SDA",
+                                        "name": "ACK_bit",
                                         "isBus": false
                                     }
                                 ]
@@ -78,8 +119,40 @@
                                 "type": "DATA",
                                 "direction": "IN",
                                 "isVector": true,
-                                "leftIndex": 3,
-                                "rightIndex": 10,
+                                "leftIndex": 15,
+                                "rightIndex": 15,
+                                "portIndex": 0,
+                                "nets": [
+                                    {
+                                        "name": "SCL",
+                                        "isBus": false
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe0",
+                                "id": 4,
+                                "type": "DATA",
+                                "direction": "IN",
+                                "isVector": true,
+                                "leftIndex": 16,
+                                "rightIndex": 16,
+                                "portIndex": 0,
+                                "nets": [
+                                    {
+                                        "name": "SDA",
+                                        "isBus": false
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe0",
+                                "id": 5,
+                                "type": "DATA",
+                                "direction": "IN",
+                                "isVector": true,
+                                "leftIndex": 17,
+                                "rightIndex": 24,
                                 "portIndex": 0,
                                 "nets": [
                                     {
@@ -116,7 +189,7 @@
                             },
                             {
                                 "name": "probe1",
-                                "id": 4,
+                                "id": 6,
                                 "type": "DATA_TRIGGER",
                                 "direction": "IN",
                                 "isVector": true,
@@ -132,7 +205,7 @@
                             },
                             {
                                 "name": "probe1",
-                                "id": 5,
+                                "id": 7,
                                 "type": "DATA_TRIGGER",
                                 "direction": "IN",
                                 "isVector": true,

@@ -70,6 +70,9 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param tcl.collectionResultDisplayLimit 0
+set_param chipscope.maxJobs 3
+set_param xicom.use_bs_reader 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a75tfgg484-1
 
@@ -94,7 +97,7 @@ read_verilog -library xil_defaultlib {
   U:/Desktop/ECE437/lab5/lab5.srcs/sources_1/imports/Vivado-2021/okWireIn.v
   U:/Desktop/ECE437/lab5/JTEG_Test_File.v
 }
-read_ip -quiet u:/Desktop/ECE437/lab5/lab5.srcs/sources_1/ip/ila_0/ila_0.xci
+read_ip -quiet U:/Desktop/ECE437/lab5/lab5.srcs/sources_1/ip/ila_0/ila_0.xci
 set_property used_in_synthesis false [get_files -all u:/Desktop/ECE437/lab5/lab5.gen/sources_1/ip/ila_0/ila_v6_2/constraints/ila_impl.xdc]
 set_property used_in_implementation false [get_files -all u:/Desktop/ECE437/lab5/lab5.gen/sources_1/ip/ila_0/ila_v6_2/constraints/ila_impl.xdc]
 set_property used_in_implementation false [get_files -all u:/Desktop/ECE437/lab5/lab5.gen/sources_1/ip/ila_0/ila_v6_2/constraints/ila.xdc]
@@ -113,6 +116,8 @@ read_xdc U:/Desktop/ECE437/lab5/lab5.srcs/constrs_1/imports/Downloads/xem7310_v1
 set_property used_in_implementation false [get_files U:/Desktop/ECE437/lab5/lab5.srcs/constrs_1/imports/Downloads/xem7310_v1.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
+
+read_checkpoint -auto_incremental -incremental U:/Desktop/ECE437/lab5/lab5.srcs/utils_1/imports/synth_1/JTEG_Test_File.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }

@@ -39,7 +39,7 @@ print("Send GO signal to the FSM")
 #%% 
 # Since we are using a slow clock on the FPGA to compute the results
 # we need to wait for the result to be computed
-time.sleep(0.5)                 
+time.sleep(.5)                 
 
 PC_Control = 0; # send a "stop" signal to the FSM
 dev.SetWireInValue(0x00, PC_Control) 

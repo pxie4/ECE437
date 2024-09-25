@@ -122,7 +122,9 @@ start_step init_design
 set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
+  set_param tcl.collectionResultDisplayLimit 0
   set_param chipscope.maxJobs 3
+  set_param xicom.use_bs_reader 1
 OPTRACE "create in-memory project" START { }
   create_project -in_memory -part xc7a75tfgg484-1
   set_property design_mode GateLvl [current_fileset]
@@ -137,7 +139,7 @@ OPTRACE "set parameters" START { }
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
   add_files -quiet U:/Desktop/ECE437/lab5/lab5.runs/synth_1/JTEG_Test_File.dcp
-  read_ip -quiet u:/Desktop/ECE437/lab5/lab5.srcs/sources_1/ip/ila_0/ila_0.xci
+  read_ip -quiet U:/Desktop/ECE437/lab5/lab5.srcs/sources_1/ip/ila_0/ila_0.xci
 OPTRACE "read constraints: implementation" START { }
   read_xdc U:/Desktop/ECE437/lab5/lab5.srcs/constrs_1/imports/Downloads/xem7310_v1.xdc
 OPTRACE "read constraints: implementation" END { }
