@@ -21,6 +21,7 @@ module JTEG_Test_File(
     wire [31:0] PC_control;
     wire [12:0] temp;
     wire error;
+    wire [2:0] data_s;
     assign TrigerEvent = PC_control[0];   
 
     //Instantiate the module that we like to test
@@ -45,13 +46,14 @@ module JTEG_Test_File(
         .okAA(okAA),
         
         .temp(temp),
-        .error(error)
+        .error(error),
+        .data_s(data_s)
         );
     
     //Instantiate the ILA module
     ila_0 ila_sample12 ( 
         .clk(ILA_Clk),
-        .probe0({State, SDA, SCL, ACK_bit,temp,error}),                             
+        .probe0({State, SDA, SCL, ACK_bit,temp,error,data_s}),                             
         .probe1({FSM_Clk, TrigerEvent})
         );                        
 endmodule

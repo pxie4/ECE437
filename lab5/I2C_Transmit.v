@@ -21,7 +21,8 @@ module I2C_Transmit(
     inout wire okAA,
     // ---------------------------
     output wire [12:0] temp,
-    output wire error
+    output wire error,
+    output wire [2:0] data_s
          
     );
     
@@ -42,6 +43,7 @@ module I2C_Transmit(
     reg error_bit = 1'b1;      
     assign temp = temp_val[15:3];
     assign error = error_bit;
+    assign data_s = data_state;
     
     localparam STATE_INIT = 8'd0;    
     assign led[7] = ACK_bit;
@@ -396,9 +398,11 @@ module I2C_Transmit(
             // read the ACK bit from the sensor and display it on LED[7]
             8'd35 : begin
                   SCL <= 1'b0;
-                  if (data_state != 4) begin
+                  if (data_state < 3) begin
                     SDA <= 1'bz;
-                  end else if (data_state == 4) begin
+                  end else if ( data_state == 3) begin // set ACK
+                    SDA <= 0;
+                  end else if ( data_state == 4 ) begin // set NACK
                     SDA <= 1;
                   end
                   State <= State + 1'b1;                 
@@ -411,7 +415,7 @@ module I2C_Transmit(
 
             8'd37 : begin
                   SCL <= 1'b1;
-                  if (data_state != 4) begin
+                  if (data_state  < 3) begin
                     ACK_bit <= SDA;
                   end 
                                    
@@ -451,6 +455,11 @@ module I2C_Transmit(
             8'd41 : begin
                   SCL <= 1'b1;
                   SDA <= 1'b1;
+                  if (PC_control[0] == 0) begin
+                    State <= STATE_INIT;
+                    data_state <= 0;
+                    //emp_val <= 0;
+                  end 
                   //State <= STATE_INIT;                  
             end              
             
@@ -478,10 +487,19 @@ module I2C_Transmit(
         .okEH(okEH)
     );
     
+    localparam end_point = 1;
+    wire [end_point*65-1:0] okEHx;
+    okWireOR # (.N(end_point)) wireOR (okEH, okEHx);
+    
     //  PC_controll is a wire that contains data sent from the PC to FPGA.
     //  The data is communicated via memeory location 0x00
     okWireIn wire10 (   .okHE(okHE), 
                         .ep_addr(8'h00), 
-                        .ep_dataout(PC_control));            
+                        .ep_dataout(PC_control));   
+                        
+    okWireOut wire20    (   .okHE(okHE),
+                            .okEH(okEHx[0*65 +:65]),
+                            .ep_addr(8'h20),
+                            .ep_datain(temp_val[15:3]));         
                    
 endmodule

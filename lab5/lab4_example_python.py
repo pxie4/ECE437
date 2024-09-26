@@ -16,6 +16,8 @@ import ok     # OpalKelly library
 # load the bit file in the FPGA
 dev = ok.okCFrontPanel()  # define a device for FrontPanel communication
 SerialStatus=dev.OpenBySerial("")      # open USB communication with the OK board
+
+
 # We will NOT load the bit file because it will be loaded using JTAG interface from Vivado
 
 # Check if FrontPanel is initialized correctly and if the bit file is loaded.
@@ -32,19 +34,27 @@ else:
 #%% 
 # Define the two variables that will send data to the FPGA
 # We will use WireIn instructions to send data to the FPGA
-PC_Control = 1; # send a "go" signal to the FSM
-dev.SetWireInValue(0x00, PC_Control) 
-dev.UpdateWireIns()  # Update the WireIns
-print("Send GO signal to the FSM") 
-#%% 
-# Since we are using a slow clock on the FPGA to compute the results
-# we need to wait for the result to be computed
-time.sleep(.5)                 
+runs = 10
 
-PC_Control = 0; # send a "stop" signal to the FSM
-dev.SetWireInValue(0x00, PC_Control) 
-dev.UpdateWireIns()  # Update the WireIns
-print("Send STOP signal to the FSM")
+for i in range(runs):
+    
+    PC_Control = 1; # send a "go" signal to the FSM
+    dev.SetWireInValue(0x00, PC_Control) 
+    dev.UpdateWireIns()  # Update the WireIns
+    print("Send GO signal to the FSM") 
+    #%% 
+    # Since we are using a slow clock on the FPGA to compute the results
+    # we need to wait for the result to be computed
+    time.sleep(.5)                 
+    
+    PC_Control = 0; # send a "stop" signal to the FSM
+    dev.SetWireInValue(0x00, PC_Control) 
+    dev.UpdateWireIns()  # Update the WireIns
+    print("Send STOP signal to the FSM")
+    
+    dev.UpdateWireOuts()
+    temp = dev.GetWireOutValue(0x20)
+    print("The temperature is " + str(int(temp)/16))
 
 dev.Close
     

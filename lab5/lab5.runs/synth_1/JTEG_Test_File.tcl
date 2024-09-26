@@ -95,6 +95,7 @@ read_verilog -library xil_defaultlib {
   U:/Desktop/ECE437/lab5/lab5.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v
   U:/Desktop/ECE437/lab5/lab5.srcs/sources_1/imports/Vivado-2021/okLibrary.v
   U:/Desktop/ECE437/lab5/lab5.srcs/sources_1/imports/Vivado-2021/okWireIn.v
+  U:/Desktop/ECE437/lab5/lab5.srcs/sources_1/imports/Vivado-2021/okWireOut.v
   U:/Desktop/ECE437/lab5/JTEG_Test_File.v
 }
 read_ip -quiet U:/Desktop/ECE437/lab5/lab5.srcs/sources_1/ip/ila_0/ila_0.xci
