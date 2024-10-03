@@ -1,28 +1,37 @@
 `timescale 1ns / 1ps
 
-module I2C_Transmit(    
+module I2C_Transmit #(parameter NUM_BYTE_READ = 6
+)
+(    
     output        [7:0]       led,
     input                     sys_clkn,
     input                     sys_clkp,
 //     output ADT7420_A0,
 //     output ADT7420_A1,
-    output                    I2C_SCL_0,
-    inout                     I2C_SDA_0,        
+    output                    I2C_SCL_1,
+    inout                     I2C_SDA_1,        
     output reg                FSM_Clk_reg,    
     output reg                ILA_Clk_reg,
     //-----------------------------------------------------------------------
     // ILA Outputs
-    output reg                ACK_bit,
-    output reg                SCL,
-    output reg                SDA,
-    output reg    [7:0]       State,
+    output wire                ACK_bit,
+    output wire                SCL,
+    output wire                SDA,
+    output wire    [7:0]       State,
     output wire   [31:0]      PC_control,
     //-----------------------------------------------------------------------
     // OK connections
     input  wire   [4:0]       okUH,
     output wire   [2:0]       okHU,
     inout  wire   [31:0]      okUHU,   
-    inout wire                okAA     
+    inout  wire               okAA,
+    //-----------------------------------------------------------------------
+    // DEGUG ILA connections
+    output wire     [1:0]     mode_ila,
+    output wire  [NUM_BYTE_READ*8-1:0] data_out_ila,
+    output wire               start_ila,
+    output wire               ready_ila,
+    output wire     [7:0]     data_state_ila
     );
     
     //Instantiate the ClockGenerator module, where three signals are generate:
@@ -34,18 +43,30 @@ module I2C_Transmit(
                                       .ClkDivThreshold(ClkDivThreshold),
                                       .FSM_Clk(FSM_Clk),                                      
                                       .ILA_Clk(ILA_Clk) );
-                                        
        
     assign led[7] = ACK_bit;
-    assign I2C_SCL_0 = SCL;
-    assign I2C_SDA_0 = SDA; 
+    assign I2C_SCL_1 = SCL;
+    assign I2C_SDA_1 = SDA; 
 
     always @(*) begin          
         FSM_Clk_reg = FSM_Clk;
         ILA_Clk_reg = ILA_Clk;   
     end 
 
-    I2C_Read #(.NUM_OF_BYTES(6)) I2C_read (
+    reg [1:0] mode;
+    reg start;
+    reg [6:0] slave_address;
+    reg [7:0] slave_reg;
+    wire ready;
+    reg [15:0] out_x_a, out_y_a, out_z_a, out_x_m, out_y_m, out_z_m;
+    wire [NUM_BYTE_READ*8-1:0] data_out;
+
+    assign mode_ila = mode;
+    assign data_out_ila = data_out;
+    assign ready_ila = ready;
+    assign start_ila = start;
+
+    I2C_Read #(.NUM_OF_BYTES(NUM_BYTE_READ)) I2C_read (
         .FSM_Clk(FSM_Clk),
         .slave_address(slave_address),
         .slave_reg(slave_reg),
@@ -55,52 +76,69 @@ module I2C_Transmit(
         .SDA(SDA),
         .State(State),
         .ready(ready),
-        .data_out()
+        .data_state_ila(data_state_ila),
+        .data_out(data_out)
     );
-  
-    localparam STATE_ACCEL = 8'd0;
-    localparam STATE_MAG = 8'd1;    
-    reg mode;
-    reg start;
-    reg [6:0] slave_address;
-    reg [7:0] slave_reg;
-    wire ready;
 
-    intial begin
-        mode = STATE_MAG;
-    end
+    localparam STATE_INIT = 8'd0;
+    localparam STATE_ACCEL = 8'd1;
+    localparam STATE_MAG = 8'd2;    
+   
+    // initial begin
+    //     mode = STATE_INIT;
+    //     start = 0;
+    // end
 
     always @(posedge FSM_Clk) begin 
         case (mode)
+            STATE_INIT : begin
+                if (PC_control[0] == 1'b1) begin
+                    mode <= STATE_MAG;
+                    start <= 1;
+                end else begin
+                    mode <= STATE_INIT;
+                end
+            end
             STATE_ACCEL : begin
                 if (ready) begin
                     mode <= STATE_MAG;
-                    start <= 1'b1;
+                    start <= 1;
+                end else begin // Currently working on reading accel sensor
+                    mode <= STATE_ACCEL;
+                    if (data_state_ila < 2) start <= 1'b1;
+                    else start <= 1'b0;
+
                     slave_address <= 7'b001_1001; //ACCEL Slave Address
                     slave_reg <= 8'b1010_1000; //base OUT_X_H_A
-                end else begin // Currently working on reading magnetic sensor
-                    mode <= STATE_ACCEL;
-                    start <= 1'b0;
+                    out_x_a <= data_out[(6*8) - 1: 4*6];
+                    out_y_a <= data_out[(4*8) - 1: 2*6];
+                    out_z_a <= data_out[(2*8) - 1: 0];
                 end
             end
             STATE_MAG : begin
                 if (ready) begin
                     mode <= STATE_ACCEL;
                     start <= 1'b1;
+                end else begin // Currently working on reading magnetic sensor
+                    mode <= STATE_MAG;
+                    if (data_state_ila < 2) start <= 1'b1;
+                    else start <= 1'b0;
+                    
                     slave_address <= 7'b001_1110; // MAG Slave Address
                     slave_reg <= 8'b1000_0011; // base OUT_X_H_M
-                end else begin // Currently working on reading accelerometer
-                    mode <= STATE_ACCEL;
-                    start <= 1'b0;
+                    out_x_m <= data_out[(6*8) - 1: 4*6];
+                    out_y_m <= data_out[(2*8) - 1: 0];
+                    out_z_m <= data_out[(4*8) - 1: 2*6];
                 end
             end
-            default : mode <= STATE_ACCEL;
+            default : mode <= STATE_INIT;
         endcase
     end
 
 
 
     // OK Interface
+    wire            okClk;
     wire [112:0]    okHE;  //These are FrontPanel wires needed to IO communication    
     wire [64:0]     okEH;  //These are FrontPanel wires needed to IO communication 
 
@@ -115,15 +153,42 @@ module I2C_Transmit(
         .okEH(okEH)
     );
     
-    localparam end_point = 1;
+    localparam end_point = 6;
     wire [end_point*65-1:0] okEHx;
     okWireOR # (.N(end_point)) wireOR (okEH, okEHx);
-    
 
-    okBTPipeOut pipeOutA0 (
-        .OkHe(), .okEH(),
-        .ep_addr(8'hA0), .ep_datain(), .ep_read(),
-        .ep_blockstrobe(), .ep_ready()
-    );
+    okWireIn wire10 (   .okHE(okHE), 
+                        .ep_addr(8'h00), 
+                        .ep_dataout(PC_control)); 
+    // Can use for loop genvar
+    okWireOut OUT_x_a    (   .okHE(okHE),
+                            .okEH(okEHx[0*65 +:65]),
+                            .ep_addr(8'h20),
+                            .ep_datain(out_x_a)); 
+    
+    okWireOut OUT_y_a    (   .okHE(okHE),
+                            .okEH(okEHx[1*65 +:65]),
+                            .ep_addr(8'h21),
+                            .ep_datain(out_y_a));
+
+    okWireOut OUT_z_a    (   .okHE(okHE),
+                            .okEH(okEHx[2*65 +:65]),
+                            .ep_addr(8'h22),
+                            .ep_datain(out_z_a));
+
+    okWireOut OUT_x_m    (   .okHE(okHE),
+                            .okEH(okEHx[3*65 +:65]),
+                            .ep_addr(8'h23),
+                            .ep_datain(out_x_m));
+
+    okWireOut OUT_y_m    (   .okHE(okHE),
+                            .okEH(okEHx[4*65 +:65]),
+                            .ep_addr(8'h24),
+                            .ep_datain(out_y_m));
+                        
+    okWireOut OUT_z_m    (   .okHE(okHE),
+                            .okEH(okEHx[5*65 +:65]),
+                            .ep_addr(8'h25),
+                            .ep_datain(out_z_m));
 
 endmodule

@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module I2C_Read #(
-        parameter NUM_OF_BYTES = 6;
+        parameter NUM_OF_BYTES = 6
 )(
     input wire          FSM_Clk,
     input wire  [6:0]   slave_address,
@@ -13,28 +13,29 @@ module I2C_Read #(
     output reg          SDA,
 
     output reg  [7:0]   State,
-    output wire         ready,
+    output reg          ready,
+    output wire [7:0]   data_state_ila,
     output reg  [8*NUM_OF_BYTES-1:0] data_out
 
     );
         
-    localparam STATE_INIT = 8'd0;    
+    localparam STATE_INIT = 8'd0;
+    localparam STATE_STOP = 8'd41;    
     reg [7:0] data_state;
+    assign data_state_ila = data_state;
+    // initial  begin
+    //     SCL = 1'b1;
+    //     SDA = 1'b1;
+    //     ACK_bit = 1'b1;  
+    //     State = STATE_STOP;
+    //     data_state = 8'b0; 
+    // end
 
-    initial  begin
-        SCL = 1'b1;
-        SDA = 1'b1;
-        ACK_bit = 1'b1;  
-        State = STATE_INIT;
-        data_state = 8'b0; 
-    end
-
-    always @(*) begin          
-        if (State == STATE_INIT) begin
+    always @(*) begin 
+        ready = 1'b0;         
+        if (State == STATE_STOP) begin
             ready = 1'b1;
-        end else begin
-            ready = 1'b0;
-        end
+        end 
     end 
 
     // states explained 0-2: Start, 3-6: bit 7, 7-10: bit 6, 
@@ -396,17 +397,16 @@ module I2C_Read #(
                   State <= State + 1'b1;
             end                                    
 
-            8'd41 : begin
+            STATE_STOP : begin
                   SCL <= 1'b1;
                   SDA <= 1'b1;
                   if (start == 0) begin
                     State <= STATE_INIT;
                     data_state <= 0;
                    
-                  end 
-                                   
-            end              
-            default :                           
+                  end                 
+            end
+            default : State <= STATE_STOP;              
         endcase                           
     end   
 

@@ -1,0 +1,31 @@
+Vivado Simulator v2022.2
+Copyright 1986-1999, 2001-2022 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2022.2/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot okHost_behav xil_defaultlib.okHost xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 4 for port 'CO' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:1976]
+WARNING: [VRFC 10-3091] actual bit length 3 differs from formal bit length 4 for port 'O' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:1979]
+WARNING: [VRFC 10-3091] actual bit length 3 differs from formal bit length 4 for port 'CO' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:3353]
+WARNING: [VRFC 10-3091] actual bit length 3 differs from formal bit length 4 for port 'CO' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:4262]
+WARNING: [VRFC 10-3091] actual bit length 3 differs from formal bit length 4 for port 'DI' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:4264]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 4 for port 'O' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:4385]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 4 for port 'S' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:4386]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 4 for port 'CO' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:5387]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 4 for port 'DI' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:5389]
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 4 for port 'O' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:5390]
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 4 for port 'S' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:5391]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 4 for port 'CO' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:5749]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 4 for port 'DI' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:5751]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 4 for port 'O' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:5752]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 4 for port 'S' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:5753]
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 4 for port 'CO' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:7133]
+WARNING: [VRFC 10-3091] actual bit length 3 differs from formal bit length 4 for port 'O' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:7136]
+WARNING: [VRFC 10-3091] actual bit length 3 differs from formal bit length 4 for port 'CO' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:7244]
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 4 for port 'CO' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:8223]
+WARNING: [VRFC 10-3091] actual bit length 3 differs from formal bit length 4 for port 'O' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:8226]
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 4 for port 'CO' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:10480]
+WARNING: [VRFC 10-3091] actual bit length 3 differs from formal bit length 4 for port 'O' [U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v:10483]
+Completed static elaboration
+Starting simulation data flow analysis
+ERROR: [XSIM 43-3253] File U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v, line 13528. Verilog alias ports are not supported in mixed language simulation.

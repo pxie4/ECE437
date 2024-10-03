@@ -82,9 +82,9 @@ print("----------------------------------------------------")
 print("----------------------------------------------------")
 
 #%%
-max_voltage = 4.0
+max_voltage = 4.5
 step_size = max_voltage / 10
-curr_voltage = 0
+temp_voltage = 0
 
 measured_voltage = np.array([])  # create an empty array to hold our values
 measured_current = np.array([])  # create an empty array to hold our values
@@ -96,14 +96,14 @@ std_temperature = np.array([])
 print(power_supply.write("OUTPUT ON"))  # power supply output is turned on
 
 # loop through the different voltages we will apply to the power supply
-while curr_voltage <= max_voltage:  # Changed < to <= for the last voltage
+while temp_voltage <= max_voltage:  # Changed < to <= for the last voltage
     # apply the desired voltage on the 6V power supply and limit the output current to 0.5A
     volt_readings = np.zeros(20)
     curr_readings = np.zeros(20)
     temp_readings = np.zeros(20)
     
     for i in range(len(volt_readings)):
-        power_supply.write("APPLy P6V, %0.2f, 0.5" % curr_voltage)
+        power_supply.write("APPLy P6V, %0.2f, 0.5" % temp_voltage)
 
         # pause 50ms to let things settle
         time.sleep(0.5)
@@ -150,7 +150,7 @@ while curr_voltage <= max_voltage:  # Changed < to <= for the last voltage
     std_current = np.append(std_current, std_curr)
     std_temperature = np.append(std_temperature, std_temp)
     
-    curr_voltage += step_size
+    temp_voltage += step_size
     
 # power supply output is turned off
 print(power_supply.write("OUTPUT OFF"))
@@ -169,7 +169,7 @@ plt.legend()
 plt.draw()
 
 plt.figure(figsize=(10, 6))
-plt.plot(std_voltage, std_current, label= 'Current Std Dev')
+plt.plot(measured_voltage, std_current, label= 'Current Std Dev')
 plt.title('I-V Standard Deviation')
 plt.xlabel('Voltage (V)')
 plt.ylabel('Current (A)')
@@ -188,7 +188,7 @@ plt.draw()
 
 # Plotting the Standard Deviation of Temperature
 plt.figure(figsize=(10, 6))
-plt.errorbar(std_voltage, std_temperature, label='Temperature Std Dev')
+plt.errorbar(measured_voltage, std_temperature, label='Temperature Std Dev')
 plt.title('Standard Deviation of Temperature vs. Voltage')
 plt.xlabel('Voltage (V)')
 plt.ylabel('Temperature (C)')
