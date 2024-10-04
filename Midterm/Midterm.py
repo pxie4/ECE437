@@ -29,35 +29,56 @@ else:
     print("Exiting the program.")
     sys.exit ()
 
+#%%
+def twos(value, bit_width):
+    if value & (1 << (bit_width-1)):
+        value = value - (1 << bit_width)
+    return value
 
 #%% 
 # Define the two variables that will send data to the FPGA
 # We will use WireIn instructions to send data to the FPGA
 runs = 100
 PC_Control = 1; # send a "go" signal to the FSM
-dev.SetWireInValue(0x00, PC_Control) 
-dev.UpdateWireIns()  # Update the WireIns
+dev.ActivateTriggerIn(0x40, PC_Control) 
 print("Send GO signal to the FSM") 
+time.sleep(.2)   
 
-for i in range(runs):
-    
-    time.sleep(.5)                 
-    
-    
-    dev.UpdateWireOuts()
-    x_accel = dev.GetWireOutValue(0x20)
-    y_accel = dev.GetWireOutValue(0x21)
-    z_accel = dev.GetWireOutValue(0x22)
-    x_mag = dev.GetWireOutValue(0x23)
-    y_mag = dev.GetWireOutValue(0x24)
-    z_mag = dev.GetWireOutValue(0x25)
-    
-    print("Accelerometer readings:")
-    print(f"X: {x_accel}, Y: {y_accel}, Z: {z_accel}")
+PC_Control = 0; 
+dev.ActivateTriggerIn(0x40, PC_Control) 
 
-    print("Magnetometer readings:")
-    print(f"X: {x_mag}, Y: {y_mag}, Z: {z_mag}")
+while runs >= 0:
+    
+    dev.UpdateTriggerOuts()
+    
+    if dev.IsTriggered(0x60, 0x01):
+        
+        dev.UpdateWireOuts()
+        #Hardcoded FSM starts with reading ACCEL then MAG
+        if runs%2 == 0:
+            x_accel = twos(dev.GetWireOutValue(0x20), 16)
+            y_accel = twos(dev.GetWireOutValue(0x21), 16)
+            z_accel = twos(dev.GetWireOutValue(0x22), 16)
+            
+            print("Accelerometer readings:")
+            print(f"X: {x_accel}, Y: {y_accel}, Z: {z_accel}")
+        else:
+            x_mag = twos(dev.GetWireOutValue(0x23), 16)
+            y_mag = twos(dev.GetWireOutValue(0x24), 16)
+            z_mag = twos(dev.GetWireOutValue(0x25), 16)
+            
+            print("Magnetometer readings:")
+            print(f"X: {x_mag}, Y: {y_mag}, Z: {z_mag}")
+            
+        PC_Control = 1; # send a "go" signal to the FSM
+        dev.ActivateTriggerIn(0x40, PC_Control) 
+        time.sleep(.2)   
 
+        PC_Control = 0; 
+        dev.ActivateTriggerIn(0x40, PC_Control) 
+        
+        runs = runs - 1; 
+        
 dev.Close
     
 #%%

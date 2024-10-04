@@ -95,7 +95,8 @@ read_verilog -library xil_defaultlib {
   U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Downloads/I2C_Transmit.v
   U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v
   U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okLibrary.v
-  U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okWireIn.v
+  U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okTriggerIn.v
+  U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okTriggerOut.v
   U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Vivado-2021/okWireOut.v
   U:/Desktop/ECE437/Midterm/Midterm.srcs/sources_1/imports/Downloads/JTEG_Test_File.v
 }

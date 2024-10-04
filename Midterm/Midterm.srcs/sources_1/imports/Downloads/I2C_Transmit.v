@@ -54,7 +54,7 @@ module I2C_Transmit #(parameter NUM_BYTE_READ = 6
     end 
 
     reg [1:0] mode;
-    reg start;
+    wire start;
     reg [6:0] slave_address;
     reg [7:0] slave_reg;
     wire ready;
@@ -88,47 +88,59 @@ module I2C_Transmit #(parameter NUM_BYTE_READ = 6
     //     mode = STATE_INIT;
     //     start = 0;
     // end
+    //assign start = PC_control[0];
+    reg pc_check, pc_latch;
+
+    always @(posedge FSM_Clk) begin 
+        pc_check <= PC_control[0];
+        
+        if (PC_control[0] && !pc_check ) begin
+            pc_latch <= 1;
+        end else begin
+            pc_latch <= 0;
+        end
+    end
+
+    assign start = pc_latch;
 
     always @(posedge FSM_Clk) begin 
         case (mode)
             STATE_INIT : begin
-                if (PC_control[0] == 1'b1) begin
-                    mode <= STATE_MAG;
-                    start <= 1;
+                if (pc_latch) begin
+                    mode <= STATE_ACCEL;
+                    
                 end else begin
                     mode <= STATE_INIT;
                 end
             end
             STATE_ACCEL : begin
-                if (ready) begin
+                if (pc_latch && ready) begin
                     mode <= STATE_MAG;
-                    start <= 1;
+                    //start <= 1;
                 end else begin // Currently working on reading accel sensor
                     mode <= STATE_ACCEL;
-                    if (data_state_ila < 2) start <= 1'b1;
-                    else start <= 1'b0;
+                    //start <= 0;
 
                     slave_address <= 7'b001_1001; //ACCEL Slave Address
                     slave_reg <= 8'b1010_1000; //base OUT_X_H_A
-                    out_x_a <= data_out[(6*8) - 1: 4*6];
-                    out_y_a <= data_out[(4*8) - 1: 2*6];
+                    out_x_a <= data_out[(6*8) - 1: 4*8];
+                    out_y_a <= data_out[(4*8) - 1: 2*8];
                     out_z_a <= data_out[(2*8) - 1: 0];
                 end
             end
             STATE_MAG : begin
-                if (ready) begin
+                if (pc_latch && ready) begin
                     mode <= STATE_ACCEL;
-                    start <= 1'b1;
+                    //start <= 1'b1;
                 end else begin // Currently working on reading magnetic sensor
                     mode <= STATE_MAG;
-                    if (data_state_ila < 2) start <= 1'b1;
-                    else start <= 1'b0;
-                    
+                    //start <= 0;
+
                     slave_address <= 7'b001_1110; // MAG Slave Address
                     slave_reg <= 8'b1000_0011; // base OUT_X_H_M
-                    out_x_m <= data_out[(6*8) - 1: 4*6];
+                    out_x_m <= data_out[(6*8) - 1: 4*8];
                     out_y_m <= data_out[(2*8) - 1: 0];
-                    out_z_m <= data_out[(4*8) - 1: 2*6];
+                    out_z_m <= data_out[(4*8) - 1: 2*8];
                 end
             end
             default : mode <= STATE_INIT;
@@ -153,13 +165,20 @@ module I2C_Transmit #(parameter NUM_BYTE_READ = 6
         .okEH(okEH)
     );
     
-    localparam end_point = 6;
+    localparam end_point = 7;
     wire [end_point*65-1:0] okEHx;
     okWireOR # (.N(end_point)) wireOR (okEH, okEHx);
 
-    okWireIn wire10 (   .okHE(okHE), 
-                        .ep_addr(8'h00), 
-                        .ep_dataout(PC_control)); 
+    okTriggerIn PC_input    (   .okHE(okHE), 
+                                .ep_addr(8'h40),
+                                .ep_clk(FSM_Clk), 
+                                .ep_trigger(PC_control)); 
+
+    okTriggerOut trigReady  (   .okHE(okHE),
+                                .okEH(okEHx[6*65 +:65]),
+                                .ep_addr(8'h60),
+                                .ep_clk(FSM_Clk),
+                                .ep_trigger(ready));
     // Can use for loop genvar
     okWireOut OUT_x_a    (   .okHE(okHE),
                             .okEH(okEHx[0*65 +:65]),

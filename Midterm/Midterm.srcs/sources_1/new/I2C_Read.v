@@ -18,9 +18,11 @@ module I2C_Read #(
     output reg  [8*NUM_OF_BYTES-1:0] data_out
 
     );
-        
-    localparam STATE_INIT = 8'd0;
+    
+    localparam STATE_START = 8'd0;
+    localparam STATE_INIT = 8'd42;
     localparam STATE_STOP = 8'd41;    
+  
     reg [7:0] data_state;
     assign data_state_ila = data_state;
     // initial  begin
@@ -33,7 +35,7 @@ module I2C_Read #(
 
     always @(*) begin 
         ready = 1'b0;         
-        if (State == STATE_STOP) begin
+        if (State == STATE_START) begin
             ready = 1'b1;
         end 
     end 
@@ -45,16 +47,20 @@ module I2C_Read #(
 
     always @(posedge FSM_Clk) begin                       
         case (State)
-            STATE_INIT : begin
-                if (start == 1'b1) begin
-                    State <= 8'd1;   
-                    SCL <= 1'b1;
-                    SDA <= 1'b1;                 
-                end else begin  
-                    SDA <= 1'b1;               
-                    SCL <= 1'b1;
-                    State <= 8'd0;
+            STATE_START : begin
+                if (start) begin
+                  data_out <= 0;
+                  State <= STATE_INIT;
+                end else begin
+                  State <= STATE_START;
                 end
+            end
+
+            STATE_INIT : begin
+                
+                State <= 8'd1;   
+                SCL <= 1'b1;
+                SDA <= 1'b1; 
             end            
             
             // This is the Start sequence            
@@ -131,7 +137,7 @@ module I2C_Read #(
                   SCL <= 1'b1;
 
                   if (data_state >= 3 && data_state < 3 + NUM_OF_BYTES) begin
-                    data_out[((NUM_OF_BYTES - data_state + 3) * 8) - 1] <= SDA;
+                    data_out[((NUM_OF_BYTES - data_state + 3) * 8) - 2] <= SDA;
                   end 
                   
                   State <= State + 1'b1;
@@ -165,7 +171,7 @@ module I2C_Read #(
             8'd13 : begin
                   SCL <= 1'b1;
                   if (data_state >= 3 && data_state < 3 + NUM_OF_BYTES) begin
-                    data_out[((NUM_OF_BYTES - data_state + 3) * 8) - 1] <= SDA;
+                    data_out[((NUM_OF_BYTES - data_state + 3) * 8) - 3] <= SDA;
                   end 
                   State <= State + 1'b1;
             end   
@@ -198,7 +204,7 @@ module I2C_Read #(
             8'd17 : begin
                   SCL <= 1'b1;
                   if (data_state >= 3 && data_state < 3 + NUM_OF_BYTES) begin
-                    data_out[((NUM_OF_BYTES - data_state + 3) * 8) - 1] <= SDA;
+                    data_out[((NUM_OF_BYTES - data_state + 3) * 8) - 4] <= SDA;
                   end 
                   State <= State + 1'b1;
             end   
@@ -231,7 +237,7 @@ module I2C_Read #(
             8'd21 : begin
                   SCL <= 1'b1;
                   if (data_state >= 3 && data_state < 3 + NUM_OF_BYTES) begin
-                    data_out[((NUM_OF_BYTES - data_state + 3) * 8) - 1] <= SDA;
+                    data_out[((NUM_OF_BYTES - data_state + 3) * 8) - 5] <= SDA;
                   end 
                   State <= State + 1'b1;
             end   
@@ -264,7 +270,7 @@ module I2C_Read #(
             8'd25 : begin
                   SCL <= 1'b1;
                   if (data_state >= 3 && data_state < 3 + NUM_OF_BYTES) begin
-                    data_out[((NUM_OF_BYTES - data_state + 3) * 8) - 1] <= SDA;
+                    data_out[((NUM_OF_BYTES - data_state + 3) * 8) - 6] <= SDA;
                   end 
                   State <= State + 1'b1;
             end   
@@ -297,7 +303,7 @@ module I2C_Read #(
             8'd29 : begin
                   SCL <= 1'b1;
                   if (data_state >= 3 && data_state < 3 + NUM_OF_BYTES) begin
-                    data_out[((NUM_OF_BYTES - data_state + 3) * 8) - 1] <= SDA;
+                    data_out[((NUM_OF_BYTES - data_state + 3) * 8) - 7] <= SDA;
                   end 
                   State <= State + 1'b1;
             end   
@@ -330,7 +336,7 @@ module I2C_Read #(
             8'd33 : begin
                   SCL <= 1'b1;
                   if (data_state >= 3 && data_state < 3 + NUM_OF_BYTES) begin
-                    data_out[((NUM_OF_BYTES - data_state + 3) * 8) - 1] <= SDA;
+                    data_out[((NUM_OF_BYTES - data_state + 3) * 8) - 8] <= SDA;
                   end 
                   State <= State + 1'b1;
             end   
@@ -345,7 +351,7 @@ module I2C_Read #(
                   SCL <= 1'b0;
                   if (data_state < 3) begin
                     SDA <= 1'bz;
-                  end else if (data_state >= 3 && data_state < 3 + NUM_OF_BYTES) begin // set ACK
+                  end else if (data_state >= 3 && data_state < 3 + NUM_OF_BYTES - 1) begin // set ACK
                     SDA <= 0;
                   end else if ( data_state == 3 + NUM_OF_BYTES - 1 ) begin // set NACK
                     SDA <= 1;
@@ -400,11 +406,10 @@ module I2C_Read #(
             STATE_STOP : begin
                   SCL <= 1'b1;
                   SDA <= 1'b1;
-                  if (start == 0) begin
-                    State <= STATE_INIT;
-                    data_state <= 0;
-                   
-                  end                 
+                  State <= STATE_START;
+                  data_state <= 0;
+                    
+                            
             end
             default : State <= STATE_STOP;              
         endcase                           

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a75tfgg484-1" LaunchTime="1727918168" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/okHost.dcp">
+<GenRun Id="synth_1" LaunchPart="xc7a75tfgg484-1" LaunchTime="1728033552" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/okHost.dcp">
   <File Type="PA-TCL" Name="JTEG_Test_File.tcl"/>
   <File Type="RDS-PROPCONSTRS" Name="JTEG_Test_File_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="JTEG_Test_File_reports.tcl"/>
@@ -54,9 +54,18 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okWireIn.v">
+    <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okTriggerIn.v">
       <FileInfo>
-        <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okWireIn.v"/>
+        <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okTriggerIn.v"/>
+        <Attr Name="ImportTime" Val="1686667912"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okTriggerOut.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okTriggerOut.v"/>
         <Attr Name="ImportTime" Val="1686667912"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -76,6 +85,16 @@
       <FileInfo>
         <Attr Name="ImportPath" Val="C:/Users/px4/Downloads/JTEG_Test_File.v"/>
         <Attr Name="ImportTime" Val="1727837655"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okWireIn.v">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okWireIn.v"/>
+        <Attr Name="ImportTime" Val="1686667912"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -134,26 +153,6 @@
       <FileInfo>
         <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okRegisterBridge.v"/>
-        <Attr Name="ImportTime" Val="1686667912"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okTriggerIn.v">
-      <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
-        <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okTriggerIn.v"/>
-        <Attr Name="ImportTime" Val="1686667912"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okTriggerOut.v">
-      <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
-        <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okTriggerOut.v"/>
         <Attr Name="ImportTime" Val="1686667912"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
