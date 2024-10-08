@@ -1,8 +1,8 @@
 -- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
--- Date        : Wed Oct  2 20:17:22 2024
--- Host        : ECEB-4022-03 running 64-bit major release  (build 9200)
+-- Date        : Sun Oct  6 22:41:26 2024
+-- Host        : ECEB-4022-10 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub
 --               u:/Desktop/ECE437/Midterm/Midterm.gen/sources_1/ip/ila_0/ila_0_stub.vhdl
 -- Design      : ila_0
@@ -15,7 +15,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity ila_0 is
   Port ( 
     clk : in STD_LOGIC;
-    probe0 : in STD_LOGIC_VECTOR ( 70 downto 0 );
+    probe0 : in STD_LOGIC_VECTOR ( 103 downto 0 );
     probe1 : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
 
@@ -25,7 +25,7 @@ architecture stub of ila_0 is
 attribute syn_black_box : boolean;
 attribute black_box_pad_pin : string;
 attribute syn_black_box of stub : architecture is true;
-attribute black_box_pad_pin of stub : architecture is "clk,probe0[70:0],probe1[1:0]";
+attribute black_box_pad_pin of stub : architecture is "clk,probe0[103:0],probe1[1:0]";
 attribute X_CORE_INFO : string;
 attribute X_CORE_INFO of stub : architecture is "ila,Vivado 2022.2";
 begin

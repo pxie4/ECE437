@@ -18,14 +18,18 @@ module JTEG_Test_File(
     wire  ILA_Clk, ACK_bit, FSM_Clk, TrigerEvent;    
     wire [23:0] ClkDivThreshold = 1_000;   
     wire SCL, SDA; 
-    wire [7:0] State;
-    wire [31:0] PC_control;
-    wire    [1:0]   mode_ila;
-    wire  [6*8-1:0] data_out_ila;
-    wire            ready_ila;
-    wire            start_ila;
-    wire    [7:0]   data_state_ila;
-    assign TrigerEvent = PC_control[0];   
+    wire [7:0]  State;
+    wire        PC_button_ila;
+    wire [7:0]  data_state_ila;
+    wire        ready_ila;
+    wire        start_ila;
+
+    wire        mode_ila;
+    wire [31:0] data_out_ila;
+    wire [31:0] data_in_ila;
+    wire [2:0]  num_of_bytes_ila;
+    wire [6:0]  slave_address_ila;
+    wire [7:0]  slave_reg_ila; 
 
     //Instantiate the module that we like to test
     I2C_Transmit I2C_Test1 (        
@@ -43,7 +47,7 @@ module JTEG_Test_File(
         .SCL(SCL),
         .SDA(SDA),
         .State(State),
-        .PC_control(PC_control),
+        .PC_button_ila(PC_button_ila),
         .okUH(okUH),
         .okHU(okHU),
         .okUHU(okUHU),
@@ -51,15 +55,20 @@ module JTEG_Test_File(
         //-----------------
         .mode_ila(mode_ila),
         .data_out_ila(data_out_ila),
+        .data_in_ila(data_in_ila),
+        .num_of_bytes_ila(num_of_bytes_ila),
+        .slave_address_ila(slave_address_ila),
+        .slave_reg_ila(slave_reg_ila),
+
         .start_ila(start_ila),
         .ready_ila(ready_ila),
         .data_state_ila(data_state_ila)
         );
     
-    //Instantiate the ILA module probe0 num of bits - 71
+    //Instantiate the ILA module probe0 num of bits - 
     ila_0 ila_sample12 ( 
         .clk(ILA_Clk),
-        .probe0({State, SDA, SCL, ACK_bit, mode_ila, data_out_ila, start_ila, ready_ila, data_state_ila}),                             
-        .probe1({FSM_Clk, TrigerEvent})
+        .probe0({State, SDA, SCL, ACK_bit, mode_ila, data_out_ila, data_in_ila, num_of_bytes_ila, slave_address_ila, slave_reg_ila, start_ila, ready_ila, data_state_ila}),                             
+        .probe1({FSM_Clk, PC_button_ila})
         );                        
 endmodule
