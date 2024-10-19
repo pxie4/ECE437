@@ -71,6 +71,7 @@ proc create_report { reportName command } {
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
 set_param tcl.collectionResultDisplayLimit 0
+set_param chipscope.maxJobs 3
 set_param xicom.use_bs_reader 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a75tfgg484-1
@@ -116,6 +117,8 @@ foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
 read_xdc U:/Desktop/ECE437/Midterm/Midterm.srcs/constrs_1/imports/Downloads/xem7310_v1.xdc
 set_property used_in_implementation false [get_files U:/Desktop/ECE437/Midterm/Midterm.srcs/constrs_1/imports/Downloads/xem7310_v1.xdc]
 
+read_xdc dont_touch.xdc
+set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
 
 read_checkpoint -auto_incremental -incremental U:/Desktop/ECE437/Midterm/Midterm.srcs/utils_1/imports/synth_1/okHost.dcp

@@ -4,6 +4,7 @@
 # import various libraries necessary to run your Python code
 import time   # time related library
 import sys,os    # system related library
+import numpy as np
 ok_sdk_loc = "C:\\Program Files\\Opal Kelly\\FrontPanelUSB\\API\\Python\\x64"
 ok_dll_loc = "C:\\Program Files\\Opal Kelly\\FrontPanelUSB\\API\\lib\\x64"
 
@@ -82,39 +83,40 @@ status = performOperation( 0, 1, 0b00010111, accel_add, ctrl_reg1_a) # perform P
 if status:
     print("Set Power mode to Normal (1 Hz) on Accelerometer")
     
-status = performOperation( 0, 1, 0b10010000, mag_add, cra_reg_m) # perform TempEn
-if status:
-    print("Temperature Enabled (15 Hz) on Magnetometer")
+# status = performOperation( 0, 1, 0b10010000, mag_add, cra_reg_m) # perform TempEn
+# if status:
+#     print("Temperature Enabled (15 Hz) on Magnetometer")
     
-status = performOperation( 0, 1, 0b10000000, mag_add, crb_reg_m) # set gain value
-if status:
-    print("Gain set to +- 4.0 Gauss on Magnetometer")   
+# status = performOperation( 0, 1, 0b10000000, mag_add, crb_reg_m) # set gain value
+# if status:
+#     print("Gain set to +- 4.0 Gauss on Magnetometer")   
     
 status = performOperation( 0, 1, 0b00000000, mag_add, mr_reg_m) # perform continous conversion
 if status:
     print("Continous-Conversion mode on Magnetometer")   
 
-# check accelerometer is connected
-status = performOperation( 1, 1, 0, mag_add, ira_reg_m) 
-if status == 0x48:
-    print("Check 1")
-else:
-    dev.Close()
-    sys.exit()
-status = performOperation( 1, 1, 0, mag_add, irb_reg_m) 
-if status == 0x34:
-    print("Check 2")
-else:
-    dev.Close()
-    sys.exit()
-status = performOperation( 1, 1, 0, mag_add, irc_reg_m) 
-if status == 0x33:
-    print("Check 3")
-else:
-    dev.Close()
-    sys.exit()
+# check magnetometer is connected
+# status = performOperation( 1, 1, 0, mag_add, ira_reg_m) 
+# if status == 0x48:
+#     print("Check 1")
+# else:
+#     dev.Close()
+#     sys.exit()
+# status = performOperation( 1, 1, 0, mag_add, irb_reg_m) 
+# if status == 0x34:
+#     print("Check 2")
+# else:
+#     dev.Close()
+#     sys.exit()
+# status = performOperation( 1, 1, 0, mag_add, irc_reg_m) 
+# if status == 0x33:
+#     print("Check 3")
+# else:
+#     dev.Close()
+#     sys.exit()
 runs = 100
-while runs >= 0: 
+while runs >= 0:
+    # time.sleep(2)
     if runs%2 == 0: #switch between accel and mag sensor
         status_accel = 0
         # while status_accel != 0xFF:
@@ -139,9 +141,9 @@ while runs >= 0:
                 z_accel = data_out
             elif i == 5:
                 z_accel = (data_out << 8) | z_accel
-        x_accel = twos(x_accel, 16)
-        y_accel = twos(y_accel, 16)
-        z_accel = twos(z_accel, 16)
+        x_accel = twos(x_accel, 16) / 16000
+        y_accel = twos(y_accel, 16) / 16000
+        z_accel = twos(z_accel, 16) / 16000
         print("Accelerometer readings:")
         print(f"X: {x_accel}, Y: {y_accel}, Z: {z_accel}")
         
@@ -178,7 +180,7 @@ while runs >= 0:
        print(f"X: {x_mag}, Y: {y_mag}, Z: {z_mag}")
        
        runs = runs - 1; 
-        
+    
 dev.Close()
     
 #%%
