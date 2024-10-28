@@ -42,12 +42,12 @@ for i in range (0, number_of_device):
     except:
         print("Instrument on USB port number [" + str(i) + "] cannot be connected. The instrument might be powered of or you are trying to connect to a mouse or keyboard.\n")
         
-# if (power_supply_id == -1):
-#     print("Power supply instrument is not powered on or connected to the PC.")   
-#     sys.exit ();
-# else:
-#     print("Power supply is connected to the PC.")
-#     power_supply = device_manager.open_resource(devices[power_supply_id]) 
+if (power_supply_id == -1):
+    print("Power supply instrument is not powered on or connected to the PC.")   
+    sys.exit ();
+else:
+    print("Power supply is connected to the PC.")
+    power_supply = device_manager.open_resource(devices[power_supply_id]) 
     
 # Define FrontPanel device variable, open USB communication and
 # load the bit file in the FPGA
@@ -171,7 +171,7 @@ temp_voltage = 3
 num_of_pulses = 100
 direction = 1
 
-# print(power_supply.write("OUTPUT ON"))  # Power supply output is turned on
+print(power_supply.write("OUTPUT ON"))  # Power supply output is turned on
 x_accel_mean = []
 x_accel_max = []
 y_accel_mean = [] 
@@ -180,18 +180,18 @@ z_accel_mean = []
 z_accel_max = []
 
 while temp_voltage <= max_voltage:
-    # power_supply.write("APPLy P6V, %0.2f, 1" % temp_voltage)
-    # time.sleep(0.5)
-    # print("-----------------------------------")
-    # print(f"Voltage:{temp_voltage}")
-    # performMotor(10, direction, num_of_pulses)  # 40% duty cycle, forward, 4 pulses
-    # direction = 1 - direction
+    power_supply.write("APPLy P6V, %0.2f, 1" % temp_voltage)
+    time.sleep(0.5)
+    print("-----------------------------------")
+    print(f"Voltage:{temp_voltage}")
+    performMotor(10, direction, num_of_pulses)  # 40% duty cycle, forward, 4 pulses
+    direction = 1 - direction
 
     x_accel_readings = []
     y_accel_readings = []
     z_accel_readings = []
     
-    for runs in range(500):
+    for runs in range(5):
         print("Accelerometer data is available")
         
         # Read accelerometer data
@@ -258,9 +258,9 @@ while temp_voltage <= max_voltage:
 
     temp_voltage += step_size
 
-# time.sleep(5)
-# print(power_supply.write("OUTPUT OFF"))
-# power_supply.close()   
+time.sleep(5)
+print(power_supply.write("OUTPUT OFF"))
+power_supply.close()   
 dev.Close()
     
 #%%

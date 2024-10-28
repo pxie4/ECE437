@@ -139,8 +139,8 @@ OPTRACE "set parameters" START { }
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
   add_files -quiet U:/Desktop/ECE437/Lab10/Lab10.runs/synth_1/JTEG_Test_File.dcp
-  read_ip -quiet u:/Desktop/ECE437/Lab10/Lab10.srcs/sources_1/ip/ila_0/ila_0.xci
-  read_ip -quiet u:/Desktop/ECE437/Lab10/Lab10.srcs/sources_1/ip/fifo_generator_0/fifo_generator_0.xci
+  read_ip -quiet U:/Desktop/ECE437/Lab10/Lab10.srcs/sources_1/ip/fifo_generator_0/fifo_generator_0.xci
+  read_ip -quiet U:/Desktop/ECE437/Lab10/Lab10.srcs/sources_1/ip/ila_0/ila_0.xci
 OPTRACE "read constraints: implementation" START { }
   read_xdc U:/Desktop/ECE437/Lab10/Lab10.srcs/constrs_1/imports/Downloads/xem7310_v1.xdc
 OPTRACE "read constraints: implementation" END { }

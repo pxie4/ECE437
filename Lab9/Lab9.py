@@ -8,6 +8,8 @@ import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
 import cv2
+import threading
+# import cv2
 
 ok_sdk_loc = "C:\\Program Files\\Opal Kelly\\FrontPanelUSB\\API\\Python\\x64"
 ok_dll_loc = "C:\\Program Files\\Opal Kelly\\FrontPanelUSB\\API\\lib\\x64"
@@ -63,6 +65,52 @@ def performSPI(mode, data_in, slave_reg):
                 return 1
     return -1
 
+num_frames = 100
+image_data = np.zeros(480*640, dtype=np.uint8)
+frame_lock = threading.Lock()
+running = True
+new_frame_captured = False
+
+def capture_frames():
+    global image_data, running, new_frame_captured
+    while running:
+        with frame_lock:
+            start = time.time()
+            # Simulated capture logic
+            dev.SetWireInValue(0x04, 2)
+         
+            dev.UpdateWireIns()
+            
+            dev.SetWireInValue(0x04, 0)     
+            dev.UpdateWireIns()
+            dev.ReadFromBlockPipeOut(0xa0, 1024, image_data)
+            
+            new_frame_captured = True  # Mark that a new frame has been captured
+            end = time.time()
+            print(f"Total Transfer Time: {end - start:.4f} seconds")
+            # print("Captured a frame")
+        time.sleep(0.01)  # Simulate a delay in capturing
+
+def display_frames():
+    global image_data, running, new_frame_captured
+    cv2.namedWindow('Video', cv2.WINDOW_NORMAL)
+
+    while True:
+        with frame_lock:
+            if new_frame_captured:
+                start = time.time()
+                frame = image_data.reshape((480, 640)) 
+                
+                new_frame_captured = False  # Reset the flag
+                cv2.imshow('Video', frame)
+                    # print("Displayed a frame")
+                end = time.time()
+                print(f"Total Display Time: {end - start:.4f} seconds")
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    running = False
+    cv2.destroyAllWindows()
 #%%
 Start1LSB = 0x00
 Start1MSB = 0x00
@@ -126,23 +174,33 @@ performSPI(1, 91, 117)
 print("117:", performSPI(0, 0, 117))
 time.sleep(.1)  
 
-
-dev.SetWireInValue(0x04, 2)
-dev.UpdateWireIns()
- 
-dev.SetWireInValue(0x04, 0)     
-dev.UpdateWireIns()
-
-image_data = np.zeros((480, 640), dtype=np.uint8)
 start = time.time()
-dev.ReadFromBlockPipeOut(0xa0, 1024, image_data);
 
-image_data = image_data.reshape((480, 640))  # Adjust shape if necessary
-image = Image.fromarray(image_data, mode='L')
+capture_thread = threading.Thread(target=capture_frames)
+display_thread = threading.Thread(target=display_frames)
 
-# Display the image
-plt.imshow(image, cmap='gray')
-plt.axis('off')  # Hide axis for better visualization
+capture_thread.start()
+display_thread.start()
+
+capture_thread.join()  # Wait for capture to finish (this won't happen unless stopped)
+display_thread.join()   # Wait for display to finish
+
+# dev.SetWireInValue(0x04, 2)
+# dev.UpdateWireIns()
+ 
+# dev.SetWireInValue(0x04, 0)     
+# dev.UpdateWireIns()
+
+# image_data = np.zeros((480, 640), dtype=np.uint8)
+# start = time.time()
+# dev.ReadFromBlockPipeOut(0xa0, 1024, image_data);
+
+# image_data = image_data.reshape((480, 640))  # Adjust shape if necessary
+# image = Image.fromarray(image_data, mode='L')
+
+# # Display the image
+# plt.imshow(image, cmap='gray')
+# plt.axis('off')  # Hide axis for better visualization
 end = time.time()
 
 print(f"Time for Frame: {end - start:.4f} seconds")

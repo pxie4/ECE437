@@ -33,8 +33,9 @@ module CMV300
     output wire                 rd_en_ila,
     output wire                 bt_full_ila,
     output wire                 line_check_ila,
-    output  wire     [9:0]       line_cnt_ila,
-    output  wire     [15:0]      frame_cnt_ila, 
+    output  wire    [9:0]       line_cnt_ila,
+    output  wire    [15:0]      frame_cnt_ila,
+    output  wire    [9:0]       pixel_cnt_ila,
     //-----------------------------------------------------------------------
     // OK connetions
     input  wire     [4:0]       okUH,
@@ -59,7 +60,7 @@ module CMV300
     //Instantiate the ClockGenerator module, where three signals are generate:
     //High speed CLK signal, Low speed FSM_Clk signal     
     // 200 MHz -> 25 MHz with DivThreshold 4 for FSM_CLK = CVM300_CLK_IN 
-    wire [23:0] ClkDivThreshold = 3;   
+    wire [23:0] ClkDivThreshold = 4;   
     wire FSM_Clk, ILA_Clk; 
     ClockGenerator ClockGenerator1 (  .sys_clkn(sys_clkn),
                                       .sys_clkp(sys_clkp),                                      
@@ -114,13 +115,14 @@ module CMV300
     );
 
     img_fsm IMG_FSM(
-        .clk(CVM300_CLK_OUT),
+        .clk(FSM_Clk),
         .start(img_start),
         .lval(CVM300_Line_valid),
         .dval(CVM300_Data_valid),
         .data_in(CVM300_D),
         .num_of_frames(num_of_frames[15:0]),
 
+        // .rst(rst),
         .wr_reset(write_reset),
         .rd_reset(read_reset),
         .wr_en(write_enable),
@@ -128,13 +130,15 @@ module CMV300
         .frame_req(CVM300_FRAME_REQ),
         .State_ila(State),
         .line_check_ila(line_check_ila),
-
+        .pixel_cnt_ila(pixel_cnt_ila),
+        
         .line_cnt_ila(line_cnt_ila),
         .frame_cnt_ila(frame_cnt_ila)
     );
 
     fifo_generator_0 FIFO(
-        .wr_clk(CVM300_CLK_OUT),
+        // .rst(rst),
+        .wr_clk(FSM_Clk),
         .wr_rst(write_reset),
         .rd_clk(okClk),
         .rd_rst(read_reset),
@@ -163,7 +167,7 @@ module CMV300
         .okEH(okEH)
     );
     
-    localparam end_point = 3;
+    localparam end_point = 4;
     wire [end_point*65-1:0] okEHx;
     okWireOR # (.N(end_point)) wireOR (okEH, okEHx);
     // read is 0 and write is 1
@@ -206,4 +210,9 @@ module CMV300
         .ep_blockstrobe(BT_Strobe), 
         .ep_ready(FIFO_BT_BlockSize_Full)
     ); 
+
+    okWireOut EmptyFull     (   .okHE(okHE),
+                                .okEH(okEHx[3*65 +:65]),
+                                .ep_addr(8'h22),
+                                .ep_datain({CVM300_Line_valid, CVM300_Data_valid,FIFO_empty,FIFO_BT_BlockSize_Full,FIFO_full}));
 endmodule

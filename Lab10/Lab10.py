@@ -7,8 +7,10 @@ import sys,os    # system related library
 import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
-import cv2
 from matplotlib.animation import FuncAnimation
+import cv2
+import threading
+
 ok_sdk_loc = "C:\\Program Files\\Opal Kelly\\FrontPanelUSB\\API\\Python\\x64"
 ok_dll_loc = "C:\\Program Files\\Opal Kelly\\FrontPanelUSB\\API\\lib\\x64"
 
@@ -62,7 +64,68 @@ def performSPI(mode, data_in, slave_reg):
             else:
                 return 1
     return -1
+frame_cnt = 0
+reg_frame = 1
+image_data = np.zeros(reg_frame*480*640, dtype=np.uint8)
+frame_lock = threading.Lock()
+running = True
+new_frame_captured = False
 
+def capture_frames():
+    global image_data, running, new_frame_captured, frame_cnt
+    while running:
+        with frame_lock:
+            start = time.time()
+            # Simulated capture logic
+            dev.SetWireInValue(0x04, 2)
+            dev.SetWireInValue(0x01, reg_frame) 
+            dev.UpdateWireIns()
+            
+            dev.SetWireInValue(0x04, 0)     
+            dev.UpdateWireIns()
+            status = dev.ReadFromBlockPipeOut(0xa0, 1024, image_data)
+            dev.UpdateWireOuts()
+            signal = dev.GetWireOutValue(0x22)
+            print(f"Status: {status},LineValid: {bool(signal & 16)}, DataValid: {bool(signal & 8)}, IsEmpty: {bool(signal & 4)}, IsBTFull: {bool(signal & 2)}, isFull: {bool(signal & 1)}")
+            if status > 0:
+                new_frame_captured = True  # Mark that a new frame has been captured
+                frame_cnt += 1
+            print(image_data.reshape((reg_frame,480,640)))
+            end = time.time()
+            print(f"Total Transfer Time: {end - start:.4f} seconds")
+            # print("Captured a frame")
+        time.sleep(0.01)  # Simulate a delay in capturing
+        
+def display_frames():
+    global image_data, running, new_frame_captured
+    cv2.namedWindow('Video', cv2.WINDOW_NORMAL)
+
+    while running:
+        with frame_lock:
+            if new_frame_captured:
+                frames = image_data.reshape((reg_frame, 480, 640)) 
+                for frame in frames:
+                    print(frame)
+                    new_frame_captured = False  # Reset the flag
+                    cv2.imshow('Video', frame)
+                # print("Displayed a frame")
+                
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    running = False
+    cv2.destroyAllWindows()
+    
+def stop_capture():
+    global running
+    print("Press 'q' to stop capturing...")
+    while running:
+        try:
+            time.sleep(0.1)  # Short sleep to avoid busy-waiting
+        except KeyboardInterrupt:
+            running = False
+            print("Stopping capture...")
+        
 #%%
 Start1LSB = 0x00
 Start1MSB = 0x00
@@ -77,12 +140,12 @@ msb = performSPI(0, 0, 4)
 print("Start1LSB:", hex(lsb))
 print("Start1MSB:", hex(msb))
 # configure other registers
-performSPI(1, 0x2c, 42)
-print("42:", performSPI(0, 0, 42))
-performSPI(1, 0x01, 43)
-print("43:", performSPI(0, 0, 43))
-performSPI(1, 0x00, 44)
-print("44:", performSPI(0, 0, 44))
+# performSPI(1, 0x2c, 42)
+# print("42:", performSPI(0, 0, 42))
+# performSPI(1, 0x01, 43)
+# print("43:", performSPI(0, 0, 43))
+# performSPI(1, 0x00, 44)
+# print("44:", performSPI(0, 0, 44))
 # above change exposure time to 300
 performSPI(1, 3, 57)
 print("57:", performSPI(0, 0, 57))
@@ -123,58 +186,70 @@ print("110:", performSPI(0, 0, 110))
 performSPI(1, 91, 117)
 print("117:", performSPI(0, 0, 117))
 
-num_frames = 100
-performSPI(1, num_frames, 55)
+
+performSPI(1, reg_frame, 55)
 print("55:", performSPI(0, 0, 55))
 performSPI(1, 0x00, 56)
 print("56:", performSPI(0, 0, 56))
 # above change to frames to 100
 time.sleep(.1)  
-
-dev.SetWireInValue(0x04, 2)
-dev.SetWireInValue(0x01,num_frames) 
-dev.UpdateWireIns()
- 
-dev.SetWireInValue(0x04, 0)     
-dev.UpdateWireIns()
-
-image_data = np.zeros(num_frames*480*640, dtype=np.uint8)
-%matplotlib qt
 # Start the overall timer
 start = time.time()
 
-dev.ReadFromBlockPipeOut(0xa0, 1024, image_data)
-image_data = image_data.reshape((num_frames, 480, 640))
+capture_thread = threading.Thread(target=capture_frames)
+display_thread = threading.Thread(target=display_frames)
 
-# for frame in range(num_frames):
-#     # image = Image.fromarray(image_data[frame], mode='L')
-#     # plt.title(f'Frame {frame + 1}')
-    
-#     plt.axis('off')  # Hide axis for better visualization
-#     plt.imshow(image_data[frame], cmap='gray')
-    
-#     # if frame < num_frames - 1:
-#     #     plt.pause(0.0001) 
-#     #     plt.clf()
-#     plt.show()
+capture_thread.start()
+display_thread.start()
+stop_capture()
 
-# Set up the figure and axis
-fig, ax = plt.subplots()
-img = ax.imshow(image_data[0], cmap='gray')  # Display the first frame initially
-plt.axis('off')  # Hide the axes
+capture_thread.join()  # Wait for capture to finish (this won't happen unless stopped)
+display_thread.join()   # Wait for display to finish
 
-# Update function for the animation
-def update(frame):
-    img.set_array(image_data[frame])  # Update the displayed image data
-    return img,
-
-# Create the animation
-ani = FuncAnimation(fig, update, frames=num_frames, blit=True, interval=100)
-
-plt.show()
 end = time.time()
+print(f"Total Time for {frame_cnt} Frames: {end - start:.4f} seconds, FPS: {frame_cnt/(end-start) :.4f} frames per second")
 
-print(f"Total Time for {num_frames} Frames: {end - start:.4f} seconds")
+# dev.SetWireInValue(0x04, 2)
+# dev.SetWireInValue(0x01, 1) 
+# dev.UpdateWireIns()
+ 
+# dev.SetWireInValue(0x04, 0)     
+# dev.UpdateWireIns()
+
+# dev.ReadFromBlockPipeOut(0xa0, 1024, image_data)
+# frame = image_data.reshape((480, 640))
+# plt.axis('off')  # Hide axis for better visualization
+# plt.imshow(frame, cmap='gray')
+# plt.show()
+# time.sleep(1)
+
+# dev.SetWireInValue(0x04, 2)
+# dev.SetWireInValue(0x01, 1) 
+# dev.UpdateWireIns()
+ 
+# dev.SetWireInValue(0x04, 0)     
+# dev.UpdateWireIns()
+
+# dev.ReadFromBlockPipeOut(0xa0, 1024, image_data)
+# frame = image_data.reshape((480, 640))
+# plt.axis('off')  # Hide axis for better visualization
+# plt.imshow(frame, cmap='gray')
+# plt.show()
+
+# for frame in image_data:
+#     # print(frame)
+#     # # image = Image.fromarray(image_data[frame], mode='L')
+#     # plt.title(f'Frame {i}')
+#     # plt.axis('off')  # Hide axis for better visualization
+#     # plt.imshow(frame, cmap='gray')
+#     # plt.show()
+#     # i += 1
+#     cv2.imshow('Video', frame)
+#     if cv2.waitKey(25) & 0xFF == ord('q'):
+#         break
+# cv2.destroyAllWindows()
+
+
 # ways to improve time for single frame improve block size transfer, 
 # lower exposure time: by changin register or changing frequency of CLK_IN
 # current setup CLKIN 25MHZ, Res:, Block Transfer: 1024

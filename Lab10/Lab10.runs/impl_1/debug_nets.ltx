@@ -84,9 +84,8 @@
                                 "portIndex": 0,
                                 "nets": [
                                     {
-                                        "name": "CVM300_CLK_OUT_IBUF_BUFG",
-                                        "isBus": false,
-                                        "parentNetId": 3
+                                        "name": "CVM300_CLK_OUT_IBUF",
+                                        "isBus": false
                                     }
                                 ]
                             },
@@ -295,8 +294,56 @@
                                 ]
                             },
                             {
-                                "name": "probe1",
+                                "name": "probe0",
                                 "id": 10,
+                                "type": "DATA_TRIGGER",
+                                "direction": "IN",
+                                "isVector": true,
+                                "leftIndex": 41,
+                                "rightIndex": 50,
+                                "portIndex": 0,
+                                "nets": [
+                                    {
+                                        "name": "pixel_cnt_ila",
+                                        "isBus": true,
+                                        "subnets": [
+                                            {
+                                                "name": "pixel_cnt_ila[9]"
+                                            },
+                                            {
+                                                "name": "pixel_cnt_ila[8]"
+                                            },
+                                            {
+                                                "name": "pixel_cnt_ila[7]"
+                                            },
+                                            {
+                                                "name": "pixel_cnt_ila[6]"
+                                            },
+                                            {
+                                                "name": "pixel_cnt_ila[5]"
+                                            },
+                                            {
+                                                "name": "pixel_cnt_ila[4]"
+                                            },
+                                            {
+                                                "name": "pixel_cnt_ila[3]"
+                                            },
+                                            {
+                                                "name": "pixel_cnt_ila[2]"
+                                            },
+                                            {
+                                                "name": "pixel_cnt_ila[1]"
+                                            },
+                                            {
+                                                "name": "pixel_cnt_ila[0]"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe1",
+                                "id": 11,
                                 "type": "DATA_TRIGGER",
                                 "direction": "IN",
                                 "isVector": true,
@@ -312,7 +359,7 @@
                             },
                             {
                                 "name": "probe1",
-                                "id": 11,
+                                "id": 12,
                                 "type": "DATA_TRIGGER",
                                 "direction": "IN",
                                 "isVector": true,
@@ -323,7 +370,7 @@
                                     {
                                         "name": "FSM_Clk",
                                         "isBus": false,
-                                        "parentNetId": 38
+                                        "parentNetId": 47
                                     }
                                 ]
                             }
@@ -332,35 +379,8 @@
                 ],
                 "parent_nets": [
                     {
-                        "id": 3,
-                        "name": "CVM300_CLK_OUT_IBUF_BUFG",
-                        "state_reg": [
-                            {
-                                "name": "CMV300_1/IMG_FSM/FSM_sequential_State_reg[0]",
-                                "states": [
-                                    {
-                                        "name": "STATE_INIT",
-                                        "val": "00"
-                                    },
-                                    {
-                                        "name": "STATE_RESET",
-                                        "val": "01"
-                                    },
-                                    {
-                                        "name": "STATE_RESET_FINISHED",
-                                        "val": "10"
-                                    },
-                                    {
-                                        "name": "STATE_DATA",
-                                        "val": "11"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "id": 38,
-                        "name": "CMV300_1/CVM300_CLK_IN",
+                        "id": 47,
+                        "name": "CMV300_1/FSM_Clk_reg",
                         "state_reg": [
                             {
                                 "name": "CMV300_1/SPI_1/FSM_sequential_State_reg[0]",

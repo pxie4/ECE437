@@ -1,15 +1,13 @@
 `timescale 1ns / 1ps
 
-module I2C_Transmit
-
-(    
+module I2C_Transmit (    
     output          [7:0]       led,
     input                       sys_clkn,
     input                       sys_clkp,
     output wire                 PMOD_A1, // M2_EN
     output wire                 PMOD_A2, // M2_Dir
-//     output ADT7420_A0,
-//     output ADT7420_A1,
+    //     output ADT7420_A0,
+    //     output ADT7420_A1,
     output                      I2C_SCL_1,
     inout                       I2C_SDA_1,        
     output reg                  FSM_Clk_reg,    

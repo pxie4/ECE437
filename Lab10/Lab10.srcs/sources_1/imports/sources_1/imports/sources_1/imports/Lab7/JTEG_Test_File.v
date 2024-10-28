@@ -43,6 +43,7 @@ module JTEG_Test_File(
     wire        line_check_ila;
     wire [9:0]  line_cnt_ila;
     wire [15:0] frame_cnt_ila;
+    wire [9:0]  pixel_cnt_ila;
     // wire SPI_EN = CVM300_SPI_EN;
     // wire SPI_CLK = CVM300_SPI_CLK;
     // wire SPI_IN = CVM300_SPI_IN;
@@ -82,6 +83,7 @@ module JTEG_Test_File(
         .line_check_ila(line_check_ila),
         .line_cnt_ila(line_cnt_ila),
         .frame_cnt_ila(frame_cnt_ila),
+        .pixel_cnt_ila(pixel_cnt_ila),
 
         .okUH(okUH),
         .okHU(okHU),
@@ -93,7 +95,7 @@ module JTEG_Test_File(
     //Instantiate the ILA module probe0 num of bits - 22
     ila_0 ila_sample12 ( 
         .clk(ILA_Clk),
-        .probe0({frame_cnt_ila, line_cnt_ila, line_check_ila, State, bt_full_ila, wr_en_ila, CVM300_CLK_OUT, rd_en_ila, CVM300_Line_valid, CVM300_Data_valid }),                             
+        .probe0({pixel_cnt_ila, frame_cnt_ila, line_cnt_ila, line_check_ila, State, bt_full_ila, wr_en_ila, CVM300_CLK_OUT, rd_en_ila, CVM300_Line_valid, CVM300_Data_valid }),                             
         .probe1({FSM_Clk, PC_button_ila})
         );                        
 endmodule
