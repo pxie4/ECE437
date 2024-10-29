@@ -1,8 +1,8 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------
 | Tool Version              : Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
-| Date                      : Mon Oct 14 06:36:16 2024
-| Host                      : ECEB-4022-10 running 64-bit major release  (build 9200)
+| Date                      : Mon Oct 28 06:47:18 2024
+| Host                      : ECEB-4022-06 running 64-bit major release  (build 9200)
 | Command                   : report_io -file JTEG_Test_File_io_placed.rpt
 | Design                    : JTEG_Test_File
 | Device                    : xc7a75t

@@ -108,14 +108,37 @@ def performMotor(duty, direction, num_of_pulses):
     dev.SetWireInValue(0x05, 0) 
     dev.UpdateWireIns()
     return 1
+
+def swap_lsb_msb(value):
+    byte_length = (value.bit_length() + 7) // 8  # Calculate the number of bytes
+    if byte_length < 2:
+        return value  # No need to swap if there's only one byte
+
+    # Create masks for LSB and MSB
+    lsb_mask = 0xFF
+    msb_mask = 0xFF << ((byte_length - 1) * 8)
+    
+    lsb = value & lsb_mask  # Get the least significant byte
+    msb = value & msb_mask  # Get the most significant byte
+
+    # Clear the original LSB and MSB
+    value &= ~lsb_mask  # Clear LSB
+    value &= ~msb_mask  # Clear MSB
+    
+    # Swap the LSB and MSB
+    value |= lsb << ((byte_length - 1) * 8)  # Set LSB in MSB position
+    value |= msb >> ((byte_length - 1) * 8)  # Set MSB in LSB position
+    
+    return value
 #%% 
 # define values
 accel_add = 0x19 # 7'b001_1001
 mag_add = 0x1E # 7'b001_1110
 
 ctrl_reg1_a = 0x20 # 8'b0010_0000
+ctrl_reg4_a = 0x23 # 8'b0010_0011
 status_reg_a = 0x27 # 8'b0010_0111
-accel_reg_x = 0x28 # 8'b0010_1000
+accel_reg_x = 0xA8 # 8'b0010_1000 A8 is for MULTIPLE Byte, 28 is for Single
 
 cra_reg_m = 0x00 # 8'b0000_0000
 crb_reg_m = 0x01 # 8'b0000_0001
@@ -128,10 +151,13 @@ irb_reg_m = 0x0B
 irc_reg_m = 0x0C
 
 #%%
-status = performI2C( 0, 1, 0b00010111, accel_add, ctrl_reg1_a) # perform Power Mode Accel
+status = performI2C( 0, 1, 0b01010111, accel_add, ctrl_reg1_a) # perform Power Mode Accel
 if status:
-    print("Set Power mode to Normal (1 Hz) on Accelerometer")
+    print("Set Power mode to Normal (100 Hz) on Accelerometer")
     
+# status = performI2C( 0, 1, 0b0100000, accel_add, ctrl_reg4_a) # perform Power Mode Accel
+# if status:
+#     print("Set MSB to Lower Address on Accelerometer")
 status = performI2C( 0, 1, 0b10010000, mag_add, cra_reg_m) # perform TempEn
 if status:
     print("Temperature Enabled (15 Hz) on Magnetometer")
@@ -144,25 +170,6 @@ status = performI2C( 0, 1, 0b00000000, mag_add, mr_reg_m) # perform continous co
 if status:
     print("Continous-Conversion mode on Magnetometer")   
 
-# check magnetometer is connected
-status = performI2C( 1, 1, 0, mag_add, ira_reg_m) 
-if status == 0x48:
-    print("Check 1")
-else:
-    dev.Close()
-    sys.exit()
-status = performI2C( 1, 1, 0, mag_add, irb_reg_m) 
-if status == 0x34:
-    print("Check 2")
-else:
-    dev.Close()
-    sys.exit()
-status = performI2C( 1, 1, 0, mag_add, irc_reg_m) 
-if status == 0x33:
-    print("Check 3")
-else:
-    dev.Close()
-    sys.exit()
 
 max_voltage = 5
 step_size = 0.5
@@ -171,20 +178,20 @@ temp_voltage = 3
 num_of_pulses = 100
 direction = 1
 
-print(power_supply.write("OUTPUT ON"))  # Power supply output is turned on
+
 x_accel_mean = []
 x_accel_max = []
 y_accel_mean = [] 
 y_accel_max = []
 z_accel_mean = []
 z_accel_max = []
-
+print(power_supply.write("OUTPUT ON"))  # Power supply output is turned on
 while temp_voltage <= max_voltage:
     power_supply.write("APPLy P6V, %0.2f, 1" % temp_voltage)
     time.sleep(0.5)
     print("-----------------------------------")
     print(f"Voltage:{temp_voltage}")
-    performMotor(10, direction, num_of_pulses)  # 40% duty cycle, forward, 4 pulses
+    performMotor(7, direction, num_of_pulses)  # 40% duty cycle, forward, 4 pulses
     direction = 1 - direction
 
     x_accel_readings = []
@@ -198,57 +205,55 @@ while temp_voltage <= max_voltage:
         x_accel = -1
         y_accel = -1
         z_accel = -1
-        for i in range(6):
-            data_out = performI2C(1, 1, 0, accel_add, accel_reg_x + i)
+        start = time.time()
+        for i in range(3):
+            data_out = performI2C( 1, 2, 0, accel_add, accel_reg_x + i*2)
             if i == 0:
-                x_accel = data_out
+                x_accel = swap_lsb_msb(data_out) 
             elif i == 1:
-                x_accel = (data_out << 8) | x_accel
+                y_accel = swap_lsb_msb(data_out)
             elif i == 2:
-                y_accel = data_out
-            elif i == 3:
-                y_accel = (data_out << 8) | y_accel
-            elif i == 4:
-                z_accel = data_out
-            elif i == 5:
-                z_accel = (data_out << 8) | z_accel
+                z_accel = swap_lsb_msb(data_out)
         
-        x_accel = np.round(twos(x_accel, 16) / 16000)
-        y_accel = np.round(twos(y_accel, 16) / 16000)
-        z_accel = np.round(twos(z_accel, 16) / 16000)
+        x_accel = twos(x_accel, 16) / 16000
+        y_accel = twos(y_accel, 16) / 16000
+        z_accel = twos(z_accel, 16) / 16000
         print("Accelerometer readings:")
         print(f"X: {x_accel}, Y: {y_accel}, Z: {z_accel}")
-        
+        end = time.time()
+        print(f"Time: {end-start:.4f}")
         x_accel_readings.append(x_accel)
         y_accel_readings.append(y_accel)
         z_accel_readings.append(z_accel)
         
         # Read magnetometer data
-        print("Magnetometer data is available")
-        x_mag = -1
-        y_mag = -1
-        z_mag = -1
-        for i in range(6):
-            data_out = performI2C(1, 1, 0, mag_add, mag_reg_x + i)
-            if i == 0:
-                x_mag = data_out << 8
-            elif i == 1:
-                x_mag = data_out | x_mag
-            elif i == 2:
-                z_mag = data_out << 8
-            elif i == 3:
-                z_mag = data_out | z_mag
-            elif i == 4:
-                y_mag = data_out << 8
-            elif i == 5:
-                y_mag = data_out | y_mag
+        # print("Magnetometer data is available")
+        # x_mag = -1
+        # y_mag = -1
+        # z_mag = -1
+        # start = time.time()
+        # for i in range(6):
+        #     data_out = performI2C(1, 1, 0, mag_add, mag_reg_x + i)
+        #     if i == 0:
+        #         x_mag = data_out << 8
+        #     elif i == 1:
+        #         x_mag = data_out | x_mag
+        #     elif i == 2:
+        #         z_mag = data_out << 8
+        #     elif i == 3:
+        #         z_mag = data_out | z_mag
+        #     elif i == 4:
+        #         y_mag = data_out << 8
+        #     elif i == 5:
+        #         y_mag = data_out | y_mag
         
-        x_mag = twos(x_mag, 16)
-        y_mag = twos(y_mag, 16)
-        z_mag = twos(z_mag, 16)
-        print("Magnetometer readings:")
-        print(f"X: {x_mag}, Y: {y_mag}, Z: {z_mag}")
-
+        # x_mag = twos(x_mag, 16)
+        # y_mag = twos(y_mag, 16)
+        # z_mag = twos(z_mag, 16)
+        # print("Magnetometer readings:")
+        # print(f"X: {x_mag}, Y: {y_mag}, Z: {z_mag}")
+        # end = time.time()
+        # print(f"Time: {end-start:.4f}")
     x_accel_max.append(np.max(x_accel_readings))
     x_accel_mean.append(np.mean(x_accel_readings))
     y_accel_max.append(np.max(y_accel_readings))
@@ -298,4 +303,5 @@ plt.ylabel('Acceleration (g)')
 plt.legend()
 plt.grid()
 
+plt.tight_layout(pad=2.0)  # Add padding to avoid overlap
 plt.show()

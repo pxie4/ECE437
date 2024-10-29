@@ -49,7 +49,7 @@ module ClockGenerator(
     end
     // We will derive a clock signal for the finite state machine from the ILA clock
     // This clock signal will be used to run the finite state machine for the I2C protocol
-    always @(posedge ILA_Clk) begin        
+    always @(posedge clk) begin        
        if (ClkDiv == ClkDivThreshold) begin
          FSM_Clk <= !FSM_Clk;                   
          ClkDiv <= 0;

@@ -59,12 +59,35 @@ def performOperation(mode, num_of_bytes, data_in, slave_add, slave_reg):
             else:
                 return 1
     return -1
+
+def swap_lsb_msb(value):
+    byte_length = (value.bit_length() + 7) // 8  # Calculate the number of bytes
+    if byte_length < 2:
+        return value  # No need to swap if there's only one byte
+
+    # Create masks for LSB and MSB
+    lsb_mask = 0xFF
+    msb_mask = 0xFF << ((byte_length - 1) * 8)
+    
+    lsb = value & lsb_mask  # Get the least significant byte
+    msb = value & msb_mask  # Get the most significant byte
+
+    # Clear the original LSB and MSB
+    value &= ~lsb_mask  # Clear LSB
+    value &= ~msb_mask  # Clear MSB
+    
+    # Swap the LSB and MSB
+    value |= lsb << ((byte_length - 1) * 8)  # Set LSB in MSB position
+    value |= msb >> ((byte_length - 1) * 8)  # Set MSB in LSB position
+    
+    return value
 #%% 
 # define values
 accel_add = 0x19 # 7'b001_1001
 mag_add = 0x1E # 7'b001_1110
 
 ctrl_reg1_a = 0x20 # 8'b0010_0000
+ctrl_reg4_a = 0x23 # 8'b0010_0011
 status_reg_a = 0x27 # 8'b0010_0111
 accel_reg_x = 0x28 # 8'b0010_1000
 
@@ -82,7 +105,9 @@ irc_reg_m = 0x0C
 status = performOperation( 0, 1, 0b00010111, accel_add, ctrl_reg1_a) # perform Power Mode Accel
 if status:
     print("Set Power mode to Normal (1 Hz) on Accelerometer")
-    
+# status = performOperation( 0, 1, 0b0100000, accel_add, ctrl_reg4_a) 
+# if status:
+#     print("Set MSB to Lower Address on Accelerometer")    
 # status = performOperation( 0, 1, 0b10010000, mag_add, cra_reg_m) # perform TempEn
 # if status:
 #     print("Temperature Enabled (15 Hz) on Magnetometer")
@@ -116,7 +141,7 @@ if status:
 #     sys.exit()
 runs = 100
 while runs >= 0:
-    # time.sleep(2)
+    time.sleep(2)
     if runs%2 == 0: #switch between accel and mag sensor
         status_accel = 0
         # while status_accel != 0xFF:
@@ -130,7 +155,7 @@ while runs >= 0:
             data_out = performOperation( 1, 1, 0, accel_add, accel_reg_x + i)
             # place data correspondingly
             if i == 0:
-                x_accel = data_out
+                x_accel = data_out 
             elif i == 1:
                 x_accel = (data_out << 8) | x_accel
             elif i == 2:
@@ -138,7 +163,7 @@ while runs >= 0:
             elif i == 3:
                 y_accel = (data_out << 8) | y_accel
             elif i == 4:
-                z_accel = data_out
+                z_accel = data_out 
             elif i == 5:
                 z_accel = (data_out << 8) | z_accel
         x_accel = twos(x_accel, 16) / 16000

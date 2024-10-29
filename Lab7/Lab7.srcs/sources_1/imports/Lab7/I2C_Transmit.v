@@ -52,8 +52,8 @@ module I2C_Transmit (
     //High speed CLK signal, Low speed FSM_Clk signal     
     // 200 MHz -> 1000 KHz with DivThreshold 100
     // 200 MHz -> 200 Hz with DivThreshold 50000 and 10 cycles for duty cycle
-    wire [23:0] ClkDivThreshold = 100;   
-    wire [23:0] PWMDivThreshold = 500000;
+    wire [23:0] ClkDivThreshold = 250;   
+    wire [23:0] PWMDivThreshold = 50000;
     wire FSM_Clk, ILA_Clk, PWM_Clk, pwm, start_pwm; 
     ClockGenerator ClockGenerator1 (  .sys_clkn(sys_clkn),
                                       .sys_clkp(sys_clkp),                                      
