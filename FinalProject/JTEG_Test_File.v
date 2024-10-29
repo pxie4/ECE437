@@ -5,16 +5,18 @@ module JTEG_Test_File(
     input               sys_clkn,
     input               sys_clkp,  
 
-    // Hopefully PMOD 1 is PMOD A and A1-A2 refers to M2 Dir2 and En2
-    // output              PMOD_A1,
-    // output              PMOD_A2,
-
+    // For PMOD
+    output              PMOD_A1,
+    output              PMOD_A2,
+    // For LSM303DLHC
+    output              I2C_SCL_1,
+    inout               I2C_SDA_1,
+    // For CMV300
     output              CVM300_CLK_IN,
     output              CVM300_SPI_EN,
     output              CVM300_SPI_IN,   
     input               CVM300_SPI_OUT,
     output              CVM300_SPI_CLK,
-    // might need later on
     // output              CVM300_Enable_LVDS, // assign to gnd for parallel
     output              CVM300_FRAME_REQ,
     input               CVM300_Line_valid,
@@ -55,6 +57,12 @@ module JTEG_Test_File(
         .sys_clkn(sys_clkn),
         .sys_clkp(sys_clkp),
 
+        .PMOD_A1(PMOD_A1),
+        .PMOD_A2(PMOD_A2),
+        
+        .I2C_SCL_1(I2C_SCL_1),
+        .I2C_SDA_1(I2C_SDA_1), 
+        
         .CVM300_CLK_IN(CVM300_CLK_IN),
         .CVM300_SPI_EN(CVM300_SPI_EN),
         .CVM300_SPI_IN(CVM300_SPI_IN),   
