@@ -27,9 +27,9 @@ module ClockGenerator(
          
     // Initialize the two registers used in this module  
     initial begin
-      FSM_Clk = 1'b0;
-      FSM_Clk = 1'b0;
-      FSM_Clk = 1'b0;        
+      SPI_Clk = 1'b0;
+      I2C_Clk = 1'b0;
+      PWM_Clk = 1'b0;        
       ILA_Clk = 1'b0;
     end
  

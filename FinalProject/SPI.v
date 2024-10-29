@@ -5,7 +5,6 @@ module SPI (
     input wire  [31:0]    slave_reg,
     input wire            start,
     input wire  [31:0]    mode,
-    //input wire  [31:0]    num_of_bytes,
     input wire  [31:0]    data_in,
     
     input wire            SPI_OUT,

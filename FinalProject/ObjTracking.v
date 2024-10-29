@@ -78,7 +78,7 @@ module CMV300
     wire [23:0] SPIDivThreshold = 4;
     wire [23:0] I2CDivThreshold = 250;   
     wire [23:0] PWMDivThreshold = 50000;   
-    wire SPI_Clk, I2C_Clk, PWM_Clk, ILA_Clk, pwm; 
+    wire SPI_Clk, I2C_Clk, PWM_Clk, ILA_Clk, pwm, ACK_bit; 
     ClockGenerator ClockGenerator1 (  .sys_clkn(sys_clkn),
                                       .sys_clkp(sys_clkp),                                      
                                       .SPIDivThreshold(SPIDivThreshold),
@@ -103,7 +103,7 @@ module CMV300
 
     assign PC_button_ila = PC_control[1];
     assign start_ila = img_start;
-    assign ready_ila = ready;
+    assign ready_ila = 0;
     assign wr_data_ila = wr_data;
     assign wr_en_ila = write_enable;
     assign rd_en_ila = FIFO_read_enable;

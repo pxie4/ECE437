@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:48:16 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Tue Oct 29 17:06:47 2024
+# Process ID: 53144
+# Current directory: C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.runs/synth_1
+# Command line: vivado.exe -log JTEG_Test_File.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source JTEG_Test_File.tcl
+# Log file: C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.runs/synth_1/JTEG_Test_File.vds
+# Journal file: C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.runs/synth_1\vivado.jou
+# Running On: PhilsLegion, OS: Windows, CPU Frequency: 3793 MHz, CPU Physical cores: 16, Host memory: 16435 MB
+#-----------------------------------------------------------
+source JTEG_Test_File.tcl -notrace

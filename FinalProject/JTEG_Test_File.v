@@ -32,7 +32,7 @@ module JTEG_Test_File(
 );
     // assign CVM300_Enable_LVDS = 0;
 
-    wire  ILA_Clk, FSM_Clk;    
+    wire  ILA_Clk, SPI_Clk, I2C_Clk;    
     wire [7:0]  State;
     wire        PC_button_ila;
     wire [7:0]  data_state_ila;
@@ -76,7 +76,8 @@ module JTEG_Test_File(
         .CVM300_D(CVM300_D[7:0]), // expected of 8 bit mode
         .CVM300_CLK_OUT(CVM300_CLK_OUT),
         
-        .FSM_Clk_reg(FSM_Clk),        
+        .SPI_Clk_reg(SPI_Clk),
+        .I2C_Clk_reg(I2C_Clk),        
         .ILA_Clk_reg(ILA_Clk),
 
         .State(State),
@@ -103,7 +104,7 @@ module JTEG_Test_File(
     //Instantiate the ILA module probe0 num of bits - 22
     ila_0 ila_sample12 ( 
         .clk(ILA_Clk),
-        .probe0({pixel_cnt_ila, frame_cnt_ila, line_cnt_ila, line_check_ila, State, bt_full_ila, wr_en_ila, CVM300_CLK_OUT, rd_en_ila, CVM300_Line_valid, CVM300_Data_valid }),                             
-        .probe1({FSM_Clk, PC_button_ila})
+        .probe0({pixel_cnt_ila, frame_cnt_ila, line_cnt_ila, line_check_ila, bt_full_ila, wr_en_ila, rd_en_ila, CVM300_Line_valid, CVM300_Data_valid }),                             
+        .probe1({SPI_Clk, PC_button_ila})
         );                        
 endmodule

@@ -14,7 +14,7 @@ module img_fsm(
     output  reg         wr_en,
     output  reg  [7:0]  wr_data, 
     output  reg         frame_req,
-    output  wire [7:0]  State_ila,
+    output  reg [7:0]   State,
     output  wire        line_check_ila,
 
     output  wire  [9:0] line_cnt_ila,
@@ -23,8 +23,8 @@ module img_fsm(
     );
 
     
-    reg [7:0] State;
-    assign State_ila = State;
+    // reg [7:0] State;
+    // assign State_ila = State;
     localparam STATE_INIT                = 8'd0;
     localparam STATE_RESET               = 8'd1;   
     localparam STATE_RESET_FINISHED      = 8'd2;
