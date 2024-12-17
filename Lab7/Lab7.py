@@ -82,7 +82,7 @@ def performI2C(mode, num_of_bytes, data_in, slave_add, slave_reg):
     dev.SetWireInValue(0x04, slave_reg) # slave_reg
     dev.UpdateWireIns()
     
-    time.sleep(.1)   # wait .1 secs
+    time.sleep(.001)   # wait .1 secs
     dev.SetWireInValue(0x05, 0) 
     dev.UpdateWireIns()
     while True:
@@ -215,9 +215,9 @@ while temp_voltage <= max_voltage:
             elif i == 2:
                 z_accel = swap_lsb_msb(data_out)
         
-        x_accel = twos(x_accel, 16) / 16000
-        y_accel = twos(y_accel, 16) / 16000
-        z_accel = twos(z_accel, 16) / 16000
+        x_accel = np.abs(twos(x_accel, 16) / 16000)
+        y_accel = np.abs(twos(y_accel, 16) / 16000)
+        z_accel = np.abs(twos(z_accel, 16) / 16000)
         print("Accelerometer readings:")
         print(f"X: {x_accel}, Y: {y_accel}, Z: {z_accel}")
         end = time.time()
@@ -227,13 +227,14 @@ while temp_voltage <= max_voltage:
         z_accel_readings.append(z_accel)
         
         # Read magnetometer data
-        # print("Magnetometer data is available")
-        # x_mag = -1
-        # y_mag = -1
-        # z_mag = -1
-        # start = time.time()
+        print("Magnetometer data is available")
+        x_mag = -1
+        y_mag = -1
+        z_mag = -1
+        start = time.time()
         # for i in range(6):
-        #     data_out = performI2C(1, 1, 0, mag_add, mag_reg_x + i)
+        #     data_out = performI2C( 1, 1, 0, mag_add, mag_reg_x + i)
+        #     # place data correspondingly
         #     if i == 0:
         #         x_mag = data_out << 8
         #     elif i == 1:
@@ -246,14 +247,23 @@ while temp_voltage <= max_voltage:
         #         y_mag = data_out << 8
         #     elif i == 5:
         #         y_mag = data_out | y_mag
-        
-        # x_mag = twos(x_mag, 16)
-        # y_mag = twos(y_mag, 16)
-        # z_mag = twos(z_mag, 16)
-        # print("Magnetometer readings:")
-        # print(f"X: {x_mag}, Y: {y_mag}, Z: {z_mag}")
-        # end = time.time()
-        # print(f"Time: {end-start:.4f}")
+                
+        for i in range(3):
+            data_out = performI2C(1, 2, 0, mag_add, mag_reg_x + i*2)
+            if i == 0:
+                x_mag = data_out 
+            elif i == 1:
+                z_mag = data_out 
+            elif i == 2:
+                y_mag = data_out 
+            
+        x_mag = twos(x_mag, 16)
+        y_mag = twos(y_mag, 16)
+        z_mag = twos(z_mag, 16)
+        print("Magnetometer readings:")
+        print(f"X: {x_mag}, Y: {y_mag}, Z: {z_mag}")
+        end = time.time()
+        print(f"Time: {end-start:.4f}")
     x_accel_max.append(np.max(x_accel_readings))
     x_accel_mean.append(np.mean(x_accel_readings))
     y_accel_max.append(np.max(y_accel_readings))

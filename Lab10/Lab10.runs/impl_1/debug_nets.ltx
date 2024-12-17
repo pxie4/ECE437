@@ -151,7 +151,8 @@
                                                 "name": "State[3]"
                                             },
                                             {
-                                                "name": "State[2]"
+                                                "name": "State[2]",
+                                                "parentNetId": 7
                                             },
                                             {
                                                 "name": "State[1]"
@@ -379,8 +380,39 @@
                 ],
                 "parent_nets": [
                     {
+                        "id": 7,
+                        "name": "CMV300_1/IMG_FSM/Q[0]",
+                        "state_reg": [
+                            {
+                                "name": "CMV300_1/IMG_FSM/FSM_onehot_State_reg[0]",
+                                "states": [
+                                    {
+                                        "name": "STATE_INIT",
+                                        "val": "00001"
+                                    },
+                                    {
+                                        "name": "STATE_RESET",
+                                        "val": "00010"
+                                    },
+                                    {
+                                        "name": "STATE_RESET_FINISHED",
+                                        "val": "00100"
+                                    },
+                                    {
+                                        "name": "STATE_DELAY",
+                                        "val": "01000"
+                                    },
+                                    {
+                                        "name": "STATE_DATA",
+                                        "val": "10000"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
                         "id": 47,
-                        "name": "CMV300_1/FSM_Clk_reg",
+                        "name": "CMV300_1/CVM300_CLK_IN",
                         "state_reg": [
                             {
                                 "name": "CMV300_1/SPI_1/FSM_sequential_State_reg[0]",

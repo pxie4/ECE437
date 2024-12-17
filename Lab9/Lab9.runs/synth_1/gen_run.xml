@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a75tfgg484-1" LaunchTime="1729315605" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/JTEG_Test_File.dcp">
+<GenRun Id="synth_1" LaunchPart="xc7a75tfgg484-1" LaunchTime="1734325603" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/JTEG_Test_File.dcp">
   <File Type="PA-TCL" Name="JTEG_Test_File.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="JTEG_Test_File_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="JTEG_Test_File_reports.tcl"/>
   <File Type="RDS-RDS" Name="JTEG_Test_File.vds"/>
   <File Type="RDS-UTIL" Name="JTEG_Test_File_utilization_synth.rpt"/>
   <File Type="RDS-UTIL-PB" Name="JTEG_Test_File_utilization_synth.pb"/>
   <File Type="RDS-DCP" Name="JTEG_Test_File.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="JTEG_Test_File_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="JTEG_Test_File_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/ip/ila_0/ila_0.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/ip/fifo_generator_0/fifo_generator_0.xci">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -112,6 +122,16 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okTriggerOut.v">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okTriggerOut.v"/>
+        <Attr Name="ImportTime" Val="1686667912"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okBTPipeIn.v">
       <FileInfo>
         <Attr Name="AutoDisabled" Val="1"/>
@@ -156,16 +176,6 @@
       <FileInfo>
         <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okTriggerIn.v"/>
-        <Attr Name="ImportTime" Val="1686667912"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okTriggerOut.v">
-      <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
-        <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okTriggerOut.v"/>
         <Attr Name="ImportTime" Val="1686667912"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -218,5 +228,4 @@
     <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
     <Step Id="synth_design"/>
   </Strategy>
-  <BlockFileSet Type="BlockSrcs" Name="fifo_generator_0"/>
 </GenRun>

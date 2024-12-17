@@ -1,13 +1,13 @@
 #-----------------------------------------------------------
-# Vivado v2022.1 (64-bit)
-# SW Build 3526262 on Mon Apr 18 15:48:16 MDT 2022
-# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
-# Start of session at: Tue Oct 29 16:58:51 2024
-# Process ID: 54476
-# Current directory: C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.runs/ila_0_synth_1
+# Vivado v2022.2 (64-bit)
+# SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
+# IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+# Start of session at: Mon Dec 16 00:21:45 2024
+# Process ID: 7996
+# Current directory: U:/Desktop/ECE437/FinalProject/FinalProject.runs/ila_0_synth_1
 # Command line: vivado.exe -log ila_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source ila_0.tcl
-# Log file: C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.runs/ila_0_synth_1/ila_0.vds
-# Journal file: C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.runs/ila_0_synth_1\vivado.jou
-# Running On: PhilsLegion, OS: Windows, CPU Frequency: 3793 MHz, CPU Physical cores: 16, Host memory: 16435 MB
+# Log file: U:/Desktop/ECE437/FinalProject/FinalProject.runs/ila_0_synth_1/ila_0.vds
+# Journal file: U:/Desktop/ECE437/FinalProject/FinalProject.runs/ila_0_synth_1\vivado.jou
+# Running On: ECEB-4022-02, OS: Windows, CPU Frequency: 3000 MHz, CPU Physical cores: 6, Host memory: 33554 MB
 #-----------------------------------------------------------
 source ila_0.tcl -notrace

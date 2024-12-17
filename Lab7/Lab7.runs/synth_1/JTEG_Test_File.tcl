@@ -70,6 +70,9 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param tcl.collectionResultDisplayLimit 0
+set_param chipscope.maxJobs 3
+set_param xicom.use_bs_reader 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a75tfgg484-1
 
@@ -90,7 +93,7 @@ read_verilog -library xil_defaultlib {
   U:/Desktop/ECE437/Lab7/Lab7.srcs/sources_1/imports/Lab7/ClockGenerator.v
   U:/Desktop/ECE437/Lab7/Lab7.srcs/sources_1/imports/Lab7/I2C_Read.v
   U:/Desktop/ECE437/Lab7/Lab7.srcs/sources_1/imports/Lab7/I2C_Transmit.v
-  U:/Desktop/ECE437/Lab7/Lab7.srcs/sources_1/new/PWMgen.v
+  U:/Desktop/ECE437/Lab7/Lab7.srcs/sources_1/imports/Lab7/PWMgen.v
   U:/Desktop/ECE437/Lab7/Lab7.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v
   U:/Desktop/ECE437/Lab7/Lab7.srcs/sources_1/imports/Vivado-2021/okLibrary.v
   U:/Desktop/ECE437/Lab7/Lab7.srcs/sources_1/imports/Vivado-2021/okWireIn.v

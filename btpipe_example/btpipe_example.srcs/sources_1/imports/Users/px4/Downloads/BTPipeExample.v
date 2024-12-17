@@ -98,7 +98,7 @@ module BTPipeExample(
             end   
                           
             STATE_DELAY:   begin
-                if (counter_delay == 16'b0000_1111_1111_1111)  State <= STATE_ENABLE_WRITING;
+                if (counter_delay == 16'b0000_0000_1111_1111)  State <= STATE_ENABLE_WRITING;
                 else counter_delay <= counter_delay + 1;
             end
             

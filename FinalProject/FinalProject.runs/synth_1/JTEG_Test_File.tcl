@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.runs/synth_1/JTEG_Test_File.tcl"
+  variable script "U:/Desktop/ECE437/FinalProject/FinalProject.runs/synth_1/JTEG_Test_File.tcl"
   variable category "vivado_synth"
 }
 
@@ -70,7 +70,10 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param chipscope.maxJobs 4
+set_param tcl.collectionResultDisplayLimit 0
+set_param chipscope.maxJobs 3
+set_param xicom.use_bs_reader 1
+set_msg_config -id {Common 17-41} -limit 10000000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a75tfgg484-1
 
@@ -78,40 +81,40 @@ set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
-set_property webtalk.parent_dir C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.cache/wt [current_project]
-set_property parent.project_path C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.xpr [current_project]
+set_property webtalk.parent_dir U:/Desktop/ECE437/FinalProject/FinalProject.cache/wt [current_project]
+set_property parent.project_path U:/Desktop/ECE437/FinalProject/FinalProject.xpr [current_project]
 set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo c:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.cache/ip [current_project]
+set_property ip_output_repo u:/Desktop/ECE437/FinalProject/FinalProject.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib {
-  C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/ClockGenerator.v
-  C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/I2C_Read.v
-  C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/ObjTracking.v
-  C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/One_Cycle_Wire.v
-  C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/PWMgen.v
-  C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/SPI.v
-  C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/img_fsm.v
-  C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.srcs/sources_1/imports/Vivado-2021/okBTPipeOut.v
-  C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v
-  C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.srcs/sources_1/imports/Vivado-2021/okLibrary.v
-  C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.srcs/sources_1/imports/Vivado-2021/okWireIn.v
-  C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.srcs/sources_1/imports/Vivado-2021/okWireOut.v
-  C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/JTEG_Test_File.v
+  U:/Desktop/ECE437/FinalProject/ClockGenerator.v
+  U:/Desktop/ECE437/FinalProject/I2C_Read.v
+  U:/Desktop/ECE437/FinalProject/ObjTracking.v
+  U:/Desktop/ECE437/FinalProject/One_Cycle_Wire.v
+  U:/Desktop/ECE437/FinalProject/PWMgen.v
+  U:/Desktop/ECE437/FinalProject/SPI.v
+  U:/Desktop/ECE437/FinalProject/img_fsm.v
+  U:/Desktop/ECE437/FinalProject/FinalProject.srcs/sources_1/imports/Vivado-2021/okBTPipeOut.v
+  U:/Desktop/ECE437/FinalProject/FinalProject.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v
+  U:/Desktop/ECE437/FinalProject/FinalProject.srcs/sources_1/imports/Vivado-2021/okLibrary.v
+  U:/Desktop/ECE437/FinalProject/FinalProject.srcs/sources_1/imports/Vivado-2021/okWireIn.v
+  U:/Desktop/ECE437/FinalProject/FinalProject.srcs/sources_1/imports/Vivado-2021/okWireOut.v
+  U:/Desktop/ECE437/FinalProject/JTEG_Test_File.v
 }
-read_ip -quiet c:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.srcs/sources_1/ip/fifo_generator_0/fifo_generator_0.xci
-set_property used_in_implementation false [get_files -all c:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.gen/sources_1/ip/fifo_generator_0/fifo_generator_0.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.gen/sources_1/ip/fifo_generator_0/fifo_generator_0_clocks.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.gen/sources_1/ip/fifo_generator_0/fifo_generator_0_ooc.xdc]
+read_ip -quiet U:/Desktop/ECE437/FinalProject/FinalProject.srcs/sources_1/ip/fifo_generator_0/fifo_generator_0.xci
+set_property used_in_implementation false [get_files -all u:/Desktop/ECE437/FinalProject/FinalProject.gen/sources_1/ip/fifo_generator_0/fifo_generator_0.xdc]
+set_property used_in_implementation false [get_files -all u:/Desktop/ECE437/FinalProject/FinalProject.gen/sources_1/ip/fifo_generator_0/fifo_generator_0_clocks.xdc]
+set_property used_in_implementation false [get_files -all u:/Desktop/ECE437/FinalProject/FinalProject.gen/sources_1/ip/fifo_generator_0/fifo_generator_0_ooc.xdc]
 
-read_ip -quiet c:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.srcs/sources_1/ip/ila_0/ila_0.xci
-set_property used_in_synthesis false [get_files -all c:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.gen/sources_1/ip/ila_0/ila_v6_2/constraints/ila_impl.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.gen/sources_1/ip/ila_0/ila_v6_2/constraints/ila_impl.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.gen/sources_1/ip/ila_0/ila_v6_2/constraints/ila.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.gen/sources_1/ip/ila_0/ila_0_ooc.xdc]
+read_ip -quiet U:/Desktop/ECE437/FinalProject/FinalProject.srcs/sources_1/ip/ila_0/ila_0.xci
+set_property used_in_synthesis false [get_files -all u:/Desktop/ECE437/FinalProject/FinalProject.gen/sources_1/ip/ila_0/ila_v6_2/constraints/ila_impl.xdc]
+set_property used_in_implementation false [get_files -all u:/Desktop/ECE437/FinalProject/FinalProject.gen/sources_1/ip/ila_0/ila_v6_2/constraints/ila_impl.xdc]
+set_property used_in_implementation false [get_files -all u:/Desktop/ECE437/FinalProject/FinalProject.gen/sources_1/ip/ila_0/ila_v6_2/constraints/ila.xdc]
+set_property used_in_implementation false [get_files -all u:/Desktop/ECE437/FinalProject/FinalProject.gen/sources_1/ip/ila_0/ila_0_ooc.xdc]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -122,10 +125,12 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/xem7310_v1.xdc
-set_property used_in_implementation false [get_files C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/xem7310_v1.xdc]
+read_xdc U:/Desktop/ECE437/FinalProject/xem7310_v1.xdc
+set_property used_in_implementation false [get_files U:/Desktop/ECE437/FinalProject/xem7310_v1.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
+
+read_checkpoint -auto_incremental -incremental U:/Desktop/ECE437/FinalProject/FinalProject.srcs/utils_1/imports/synth_1/JTEG_Test_File.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }

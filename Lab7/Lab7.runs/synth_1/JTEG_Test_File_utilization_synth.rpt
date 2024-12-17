@@ -1,8 +1,8 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
-| Date         : Mon Oct 28 06:45:43 2024
-| Host         : ECEB-4022-06 running 64-bit major release  (build 9200)
+| Date         : Wed Oct 30 07:59:39 2024
+| Host         : ECEB-4022-02 running 64-bit major release  (build 9200)
 | Command      : report_utilization -file JTEG_Test_File_utilization_synth.rpt -pb JTEG_Test_File_utilization_synth.pb
 | Design       : JTEG_Test_File
 | Device       : xc7a75tfgg484-1
@@ -36,8 +36,8 @@ Table of Contents
 |   LUT as Memory            |   32 |     0 |          0 |     19000 |  0.17 |
 |     LUT as Distributed RAM |   32 |     0 |            |           |       |
 |     LUT as Shift Register  |    0 |     0 |            |           |       |
-| Slice Registers            | 1174 |   102 |          0 |     94400 |  1.24 |
-|   Register as Flip Flop    | 1174 |   102 |          0 |     94400 |  1.24 |
+| Slice Registers            | 1173 |   102 |          0 |     94400 |  1.24 |
+|   Register as Flip Flop    | 1173 |   102 |          0 |     94400 |  1.24 |
 |   Register as Latch        |    0 |     0 |          0 |     94400 |  0.00 |
 | F7 Muxes                   |    8 |     0 |          0 |     31700 |  0.03 |
 | F8 Muxes                   |    0 |     0 |          0 |     15850 |  0.00 |
@@ -61,7 +61,7 @@ Warning! LUT value is adjusted to account for LUT combining.
 | 27    |          Yes |           - |          Set |
 | 134   |          Yes |           - |        Reset |
 | 24    |          Yes |         Set |            - |
-| 989   |          Yes |       Reset |            - |
+| 988   |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -155,12 +155,12 @@ Warning! LUT value is adjusted to account for LUT combining.
 +------------+------+---------------------+
 |  Ref Name  | Used | Functional Category |
 +------------+------+---------------------+
-| FDRE       |  989 |        Flop & Latch |
+| FDRE       |  988 |        Flop & Latch |
 | LUT6       |  516 |                 LUT |
 | LUT1       |  298 |                 LUT |
-| LUT4       |  271 |                 LUT |
+| LUT4       |  270 |                 LUT |
 | LUT5       |  232 |                 LUT |
-| LUT2       |  191 |                 LUT |
+| LUT2       |  192 |                 LUT |
 | CARRY4     |  179 |          CarryLogic |
 | FDCE       |  134 |        Flop & Latch |
 | LUT3       |  104 |                 LUT |

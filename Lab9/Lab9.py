@@ -65,28 +65,60 @@ def performSPI(mode, data_in, slave_reg):
                 return 1
     return -1
 
-num_frames = 100
+num_frames = 0
 image_data = np.zeros(480*640, dtype=np.uint8)
 frame_lock = threading.Lock()
 running = True
 new_frame_captured = False
 
 def capture_frames():
-    global image_data, running, new_frame_captured
+    global image_data, running, new_frame_captured, num_frames
     while running:
         with frame_lock:
-            start = time.time()
             # Simulated capture logic
+            dev.UpdateWireOuts()
+            print(f"3 state count {dev.GetWireOutValue(0x24)}")
+            print(f"3 enable count {dev.GetWireOutValue(0x23)}")
+            print(f"3 is full {dev.GetWireOutValue(0x25)}")
             dev.SetWireInValue(0x04, 2)
          
             dev.UpdateWireIns()
             
             dev.SetWireInValue(0x04, 0)     
             dev.UpdateWireIns()
-            dev.ReadFromBlockPipeOut(0xa0, 1024, image_data)
-            
-            new_frame_captured = True  # Mark that a new frame has been captured
+            time.sleep(.0001)
+            dev.UpdateWireOuts()
+            print(f"1 enable count {dev.GetWireOutValue(0x23)}")
+            print(f"1 state count {dev.GetWireOutValue(0x24)}")
+            print(f"1 is full {dev.GetWireOutValue(0x25)}")
+            start = time.time()
+            # while True:
+            #     dev.UpdateWireOuts()
+            #     if dev.GetWireOutValue(0x23) == 0:
+            #         dev.ReadFromBlockPipeOut(0xa0, 1024, image_data)
+            #         dev.UpdateWireOuts()
+            #         print(f"2 enable count {dev.GetWireOutValue(0x23)}")
+            #         print(f"2 state count {dev.GetWireOutValue(0x24)}")
+            #         print(f"2 is full {dev.GetWireOutValue(0x25)}")
+            #         break
+            #     else:
+            #         print("Failed Frame")
+            #         break
+            dev.UpdateWireOuts()
+            if dev.GetWireOutValue(0x23) == 0:
+                dev.ReadFromBlockPipeOut(0xa0, 1024, image_data)
+                dev.UpdateWireOuts()
+                print(f"2 enable count {dev.GetWireOutValue(0x23)}")
+                print(f"2 state count {dev.GetWireOutValue(0x24)}")
+                print(f"2 is full {dev.GetWireOutValue(0x25)}")
+                
+            else:
+                num_frames += 1
+                
+            # dev.UpdateTriggerOuts()    
             end = time.time()
+            new_frame_captured = True  # Mark that a new frame has been captured
+            
             print(f"Total Transfer Time: {end - start:.4f} seconds")
             # print("Captured a frame")
         time.sleep(0.01)  # Simulate a delay in capturing
@@ -172,7 +204,7 @@ performSPI(1, 80, 110)
 print("110:", performSPI(0, 0, 110))
 performSPI(1, 91, 117)
 print("117:", performSPI(0, 0, 117))
-time.sleep(.1)  
+time.sleep(.5 )  
 
 start = time.time()
 
@@ -204,6 +236,7 @@ display_thread.join()   # Wait for display to finish
 end = time.time()
 
 print(f"Time for Frame: {end - start:.4f} seconds")
+print(f" num of failed frames: {num_frames}")
 # ways to improve time for single frame improve block size transfer, 
 # lower exposure time: by changin register or changing frequency of CLK_IN
 # current setup CLKIN 25MHZ, Res:, Block Transfer: 1024

@@ -6,6 +6,7 @@ module img_fsm(
     input   wire        lval,
     input   wire        dval,
     input   wire [7:0]  data_in,
+    input   wire        FIFO_empty,
 
     output  reg         wr_reset,
     output  reg         rd_reset, 
@@ -13,20 +14,23 @@ module img_fsm(
     output  reg [7:0]   wr_data, 
     output  reg         frame_req,
     output  wire [7:0]  State_ila,
-    output  wire        line_check_ila                
+    output  wire        line_check_ila,
+    output  wire [31:0]      num_of_en                
     );
 
     
     reg [7:0] State;
+    reg [31:0] enable_count;
+    assign num_of_en = enable_count;
     assign State_ila = State;
     localparam STATE_INIT                = 8'd0;
     localparam STATE_RESET               = 8'd1;   
     localparam STATE_RESET_FINISHED      = 8'd2;
-    //localparam STATE_DELAY               = 8'd3;
+    localparam STATE_DELAY               = 8'd3;
     localparam STATE_DATA                = 8'd4;  
     reg line_check;
     reg [9:0] line_cnt, pixel_cnt;
-    // reg [15:0] counter_delay = 16'd0;
+    reg [15:0] counter_delay = 16'd0;
     assign line_check_ila = (line_cnt == 480) ? 1 : 0;
     always @(negedge clk) begin 
         line_check <= lval;
@@ -39,7 +43,11 @@ module img_fsm(
         case (State)
             STATE_INIT:   begin                              
                 wr_en <= 1'b0;
-                if (start == 1'b1) State <= STATE_RESET;                
+                
+                if (start == 1'b1) begin
+                    State <= STATE_RESET;  
+                    enable_count <= 0;           
+                end   
             end
             
             STATE_RESET:   begin
@@ -49,16 +57,17 @@ module img_fsm(
                 if (start == 1'b0) State <= STATE_RESET_FINISHED;             
             end                                     
  
-           STATE_RESET_FINISHED:   begin
+            STATE_RESET_FINISHED:   begin
                 wr_reset <= 1'b0;
                 rd_reset <= 1'b0;
-                frame_req <= 1'b0;                    
-                State <= STATE_DATA;                                   
+                frame_req <= 1'b1;  
+                // enable_count <= 0;                  
+                if (FIFO_empty == 1) State <= STATE_DATA;                                   
             end  
-  
             
             STATE_DATA:   begin
                 wr_en <= 0;
+                frame_req <= 1'b0;
                 if (lval == 0) begin
                     pixel_cnt <= 0;
                 end
@@ -66,6 +75,7 @@ module img_fsm(
                     pixel_cnt <= pixel_cnt + 1;
                     wr_data <= data_in;
                     wr_en <= 1;
+                    enable_count <= enable_count + 1;
                 end
                 if (lval == 0 && line_cnt == 480) begin //configured to read 480 lines
                     State <= STATE_INIT;

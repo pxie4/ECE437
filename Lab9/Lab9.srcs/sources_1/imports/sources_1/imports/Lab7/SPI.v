@@ -40,7 +40,7 @@ module SPI (
     always @(posedge FSM_Clk) begin                       
         case (State)
             STATE_IDLE : begin
-                if (start && cnt_power == 40) begin
+                if (start && cnt_power == 100) begin
                     data_out <= 0;
                     State <= STATE_START;
                 end else if (start && cnt_power == 0) begin
@@ -56,7 +56,7 @@ module SPI (
                 end
             end
             STATE_POWERUP : begin
-                if (cnt_power == 40) begin
+                if (cnt_power == 100) begin
                     State <= STATE_START;
                 end else begin
                     cnt_power <= cnt_power + 1;

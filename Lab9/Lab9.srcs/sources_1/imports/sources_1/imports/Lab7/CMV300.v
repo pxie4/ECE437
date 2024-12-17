@@ -41,7 +41,7 @@ module CMV300
     inout  wire                 okAA
     
     );
-    wire [31:0] mode, data_out, data_in, slave_reg, PC_control;
+    wire [31:0] mode, data_out, data_in, slave_reg, PC_control, num_of_en;
     wire spi_start, img_start;
     wire ready;
 
@@ -110,6 +110,7 @@ module CMV300
         .pc_wire(PC_control[1]),
         .pc_cycle(img_start)
     );
+    // assign CVM300_FRAME_REQ = img_start;
 
     img_fsm IMG_FSM(
         .clk(CVM300_CLK_OUT),
@@ -117,6 +118,7 @@ module CMV300
         .lval(CVM300_Line_valid),
         .dval(CVM300_Data_valid),
         .data_in(CVM300_D),
+        .FIFO_empty(FIFO_empty),
 
         .wr_reset(write_reset),
         .rd_reset(read_reset),
@@ -124,14 +126,15 @@ module CMV300
         .wr_data(wr_data),
         .frame_req(CVM300_FRAME_REQ),
         .State_ila(State),
-        .line_check_ila(line_check_ila)
+        .line_check_ila(line_check_ila),
+        .num_of_en(num_of_en)
     );
 
     fifo_generator_0 FIFO(
         .wr_clk(CVM300_CLK_OUT),
         .wr_rst(write_reset),
         .rd_clk(okClk),
-        .rd_rst(read_reset),
+        .rd_rst(read_reset), 
         .din(wr_data),
         .wr_en(write_enable),
         .rd_en(FIFO_read_enable),
@@ -157,7 +160,7 @@ module CMV300
         .okEH(okEH)
     );
     
-    localparam end_point = 3;
+    localparam end_point = 7;
     wire [end_point*65-1:0] okEHx;
     okWireOR # (.N(end_point)) wireOR (okEH, okEHx);
     // read is 0 and write is 1
@@ -190,10 +193,34 @@ module CMV300
                                 .okEH(okEHx[1*65 +:65]),
                                 .ep_addr(8'h21),
                                 .ep_datain(ready));
+    
+    okWireOut write_out     (   .okHE(okHE),
+                                .okEH(okEHx[2*65 +:65]),
+                                .ep_addr(8'h22),
+                                
+                                .ep_datain(FIFO_BT_BlockSize_Full));
+
+    okWireOut en_cnt     (   .okHE(okHE),
+                                .okEH(okEHx[4*65 +:65]),
+                                .ep_addr(8'h23),
+                                
+                                .ep_datain(num_of_en));
+
+    okWireOut state_cnt     (   .okHE(okHE),
+                                .okEH(okEHx[5*65 +:65]),
+                                .ep_addr(8'h24),
+                                
+                                .ep_datain(State));
+
+    okWireOut full_out     (   .okHE(okHE),
+                                .okEH(okEHx[6*65 +:65]),
+                                .ep_addr(8'h25),
+                                
+                                .ep_datain(FIFO_full));
 
     okBTPipeOut IMGtoPC (
         .okHE(okHE), 
-        .okEH(okEHx[ 2*65 +: 65 ]),
+        .okEH(okEHx[ 3*65 +: 65 ]),
         .ep_addr(8'ha0), 
         .ep_datain({FIFO_data_out[7:0],FIFO_data_out[15:8],FIFO_data_out[23:16],FIFO_data_out[31:24]}), 
         .ep_read(FIFO_read_enable),

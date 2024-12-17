@@ -14,10 +14,10 @@
       <Cursor1Time time="0"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="186"></NameColumnWidth>
+      <NameColumnWidth column_width="182"></NameColumnWidth>
       <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="15" />
+   <WVObjectSize size="23" />
    <wvobject fp_name="FSM_Clk" type="logic">
       <obj_property name="DisplayName">FullPathName</obj_property>
       <obj_property name="ElementShortName">FSM_Clk</obj_property>
@@ -33,63 +33,154 @@
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject fp_name="ACK_bit" type="logic">
-      <obj_property name="ElementShortName">ACK_bit</obj_property>
-      <obj_property name="ObjectShortName">ACK_bit</obj_property>
-   </wvobject>
-   <wvobject fp_name="SCL" type="logic">
-      <obj_property name="ElementShortName">SCL</obj_property>
-      <obj_property name="ObjectShortName">SCL</obj_property>
-   </wvobject>
-   <wvobject fp_name="SDA" type="logic">
-      <obj_property name="ElementShortName">SDA</obj_property>
-      <obj_property name="ObjectShortName">SDA</obj_property>
-   </wvobject>
    <wvobject fp_name="State" type="array">
+      <obj_property name="DisplayName">FullPathName</obj_property>
       <obj_property name="ElementShortName">State[7:0]</obj_property>
       <obj_property name="ObjectShortName">State[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject fp_name="data_in_ila" type="array">
-      <obj_property name="ElementShortName">data_in_ila[31:0]</obj_property>
-      <obj_property name="ObjectShortName">data_in_ila[31:0]</obj_property>
+   <wvobject fp_name="CVM300_CLK_OUT_IBUF_BUFG" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">CVM300_CLK_OUT_IBUF_BUFG</obj_property>
+      <obj_property name="ObjectShortName">CVM300_CLK_OUT_IBUF_BUFG</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="CVM300_Data_valid_IBUF" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">CVM300_Data_valid_IBUF</obj_property>
+      <obj_property name="ObjectShortName">CVM300_Data_valid_IBUF</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="CVM300_Line_valid_IBUF" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">CVM300_Line_valid_IBUF</obj_property>
+      <obj_property name="ObjectShortName">CVM300_Line_valid_IBUF</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="FSM_Clk" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">FSM_Clk</obj_property>
+      <obj_property name="ObjectShortName">FSM_Clk</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="PC_button_ila" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">PC_button_ila</obj_property>
+      <obj_property name="ObjectShortName">PC_button_ila</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="State" type="array">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">State[7:0]</obj_property>
+      <obj_property name="ObjectShortName">State[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject fp_name="data_out_ila" type="array">
-      <obj_property name="ElementShortName">data_out_ila[31:0]</obj_property>
-      <obj_property name="ObjectShortName">data_out_ila[31:0]</obj_property>
+   <wvobject fp_name="bt_full_ila" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">bt_full_ila</obj_property>
+      <obj_property name="ObjectShortName">bt_full_ila</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="line_check_ila" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">line_check_ila</obj_property>
+      <obj_property name="ObjectShortName">line_check_ila</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="rd_en_ila" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">rd_en_ila</obj_property>
+      <obj_property name="ObjectShortName">rd_en_ila</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="wr_en_ila" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">wr_en_ila</obj_property>
+      <obj_property name="ObjectShortName">wr_en_ila</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="CVM300_CLK_OUT_IBUF_BUFG" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">CVM300_CLK_OUT_IBUF_BUFG</obj_property>
+      <obj_property name="ObjectShortName">CVM300_CLK_OUT_IBUF_BUFG</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="CVM300_Data_valid_IBUF" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">CVM300_Data_valid_IBUF</obj_property>
+      <obj_property name="ObjectShortName">CVM300_Data_valid_IBUF</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="CVM300_Line_valid_IBUF" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">CVM300_Line_valid_IBUF</obj_property>
+      <obj_property name="ObjectShortName">CVM300_Line_valid_IBUF</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="FSM_Clk" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">FSM_Clk</obj_property>
+      <obj_property name="ObjectShortName">FSM_Clk</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="PC_button_ila" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">PC_button_ila</obj_property>
+      <obj_property name="ObjectShortName">PC_button_ila</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="State" type="array">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">State[7:0]</obj_property>
+      <obj_property name="ObjectShortName">State[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject fp_name="data_state_ila" type="array">
-      <obj_property name="ElementShortName">data_state_ila[7:0]</obj_property>
-      <obj_property name="ObjectShortName">data_state_ila[7:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+   <wvobject fp_name="bt_full_ila" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">bt_full_ila</obj_property>
+      <obj_property name="ObjectShortName">bt_full_ila</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject fp_name="mode_ila" type="logic">
-      <obj_property name="ElementShortName">mode_ila</obj_property>
-      <obj_property name="ObjectShortName">mode_ila</obj_property>
+   <wvobject fp_name="line_check_ila" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">line_check_ila</obj_property>
+      <obj_property name="ObjectShortName">line_check_ila</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject fp_name="num_of_bytes_ila" type="array">
-      <obj_property name="ElementShortName">num_of_bytes_ila[2:0]</obj_property>
-      <obj_property name="ObjectShortName">num_of_bytes_ila[2:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+   <wvobject fp_name="rd_en_ila" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">rd_en_ila</obj_property>
+      <obj_property name="ObjectShortName">rd_en_ila</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject fp_name="ready_ila" type="logic">
-      <obj_property name="ElementShortName">ready_ila</obj_property>
-      <obj_property name="ObjectShortName">ready_ila</obj_property>
-   </wvobject>
-   <wvobject fp_name="slave_address_ila" type="array">
-      <obj_property name="ElementShortName">slave_address_ila[6:0]</obj_property>
-      <obj_property name="ObjectShortName">slave_address_ila[6:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="slave_reg_ila" type="array">
-      <obj_property name="ElementShortName">slave_reg_ila[7:0]</obj_property>
-      <obj_property name="ObjectShortName">slave_reg_ila[7:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="start_ila" type="logic">
-      <obj_property name="ElementShortName">start_ila</obj_property>
-      <obj_property name="ObjectShortName">start_ila</obj_property>
+   <wvobject fp_name="wr_en_ila" type="logic">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">wr_en_ila</obj_property>
+      <obj_property name="ObjectShortName">wr_en_ila</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
 </wave_config>

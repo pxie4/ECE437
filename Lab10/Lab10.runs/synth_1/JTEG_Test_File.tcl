@@ -71,6 +71,7 @@ proc create_report { reportName command } {
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
 set_param tcl.collectionResultDisplayLimit 0
+set_param chipscope.maxJobs 3
 set_param xicom.use_bs_reader 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a75tfgg484-1
@@ -89,17 +90,17 @@ set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib {
-  U:/Desktop/ECE437/Lab10/Lab10.srcs/sources_1/imports/sources_1/imports/sources_1/imports/Lab7/CMV300.v
-  U:/Desktop/ECE437/Lab10/Lab10.srcs/sources_1/imports/sources_1/imports/sources_1/imports/Lab7/ClockGenerator.v
-  U:/Desktop/ECE437/Lab10/Lab10.srcs/sources_1/imports/sources_1/imports/sources_1/new/One_Cycle_Wire.v
-  U:/Desktop/ECE437/Lab10/Lab10.srcs/sources_1/imports/sources_1/imports/sources_1/imports/Lab7/SPI.v
-  U:/Desktop/ECE437/Lab10/Lab10.srcs/sources_1/imports/sources_1/new/img_fsm.v
+  U:/Desktop/ECE437/Lab10/CMV300.v
+  U:/Desktop/ECE437/Lab10/ClockGenerator.v
+  U:/Desktop/ECE437/Lab10/One_Cycle_Wire.v
+  U:/Desktop/ECE437/Lab10/SPI.v
+  U:/Desktop/ECE437/Lab10/img_fsm.v
   U:/Desktop/ECE437/Lab10/Lab10.srcs/sources_1/imports/Vivado-2021/okBTPipeOut.v
   U:/Desktop/ECE437/Lab10/Lab10.srcs/sources_1/imports/Vivado-2021/okCoreHarness.v
   U:/Desktop/ECE437/Lab10/Lab10.srcs/sources_1/imports/Vivado-2021/okLibrary.v
   U:/Desktop/ECE437/Lab10/Lab10.srcs/sources_1/imports/Vivado-2021/okWireIn.v
   U:/Desktop/ECE437/Lab10/Lab10.srcs/sources_1/imports/Vivado-2021/okWireOut.v
-  U:/Desktop/ECE437/Lab10/Lab10.srcs/sources_1/imports/sources_1/imports/sources_1/imports/Lab7/JTEG_Test_File.v
+  U:/Desktop/ECE437/Lab10/JTEG_Test_File.v
 }
 read_ip -quiet U:/Desktop/ECE437/Lab10/Lab10.srcs/sources_1/ip/fifo_generator_0/fifo_generator_0.xci
 set_property used_in_implementation false [get_files -all u:/Desktop/ECE437/Lab10/Lab10.gen/sources_1/ip/fifo_generator_0/fifo_generator_0.xdc]
@@ -121,8 +122,8 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc U:/Desktop/ECE437/Lab10/Lab10.srcs/constrs_1/imports/Downloads/xem7310_v1.xdc
-set_property used_in_implementation false [get_files U:/Desktop/ECE437/Lab10/Lab10.srcs/constrs_1/imports/Downloads/xem7310_v1.xdc]
+read_xdc U:/Desktop/ECE437/Lab10/xem7310_v1.xdc
+set_property used_in_implementation false [get_files U:/Desktop/ECE437/Lab10/xem7310_v1.xdc]
 
 read_xdc dont_touch.xdc
 set_property used_in_implementation false [get_files dont_touch.xdc]

@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
-| Date         : Sat Oct 19 00:28:57 2024
+| Date         : Sun Dec 15 23:08:55 2024
 | Host         : ECEB-4022-02 running 64-bit major release  (build 9200)
 | Command      : report_utilization -file JTEG_Test_File_utilization_synth.rpt -pb JTEG_Test_File_utilization_synth.pb
 | Design       : JTEG_Test_File
@@ -31,13 +31,13 @@ Table of Contents
 +----------------------------+------+-------+------------+-----------+-------+
 |          Site Type         | Used | Fixed | Prohibited | Available | Util% |
 +----------------------------+------+-------+------------+-----------+-------+
-| Slice LUTs*                | 3777 |     0 |          0 |     47200 |  8.00 |
-|   LUT as Logic             | 3341 |     0 |          0 |     47200 |  7.08 |
+| Slice LUTs*                | 3955 |     0 |          0 |     47200 |  8.38 |
+|   LUT as Logic             | 3519 |     0 |          0 |     47200 |  7.46 |
 |   LUT as Memory            |  436 |     0 |          0 |     19000 |  2.29 |
 |     LUT as Distributed RAM |  160 |     0 |            |           |       |
 |     LUT as Shift Register  |  276 |     0 |            |           |       |
-| Slice Registers            | 4455 |   103 |          0 |     94400 |  4.72 |
-|   Register as Flip Flop    | 4455 |   103 |          0 |     94400 |  4.72 |
+| Slice Registers            | 4525 |   103 |          0 |     94400 |  4.79 |
+|   Register as Flip Flop    | 4525 |   103 |          0 |     94400 |  4.79 |
 |   Register as Latch        |    0 |     0 |          0 |     94400 |  0.00 |
 | F7 Muxes                   |  175 |     0 |          0 |     31700 |  0.55 |
 | F8 Muxes                   |    3 |     0 |          0 |     15850 |  0.02 |
@@ -60,8 +60,8 @@ Warning! LUT value is adjusted to account for LUT combining.
 | 0     |          Yes |           - |            - |
 | 27    |          Yes |           - |          Set |
 | 134   |          Yes |           - |        Reset |
-| 34    |          Yes |         Set |            - |
-| 4260  |          Yes |       Reset |            - |
+| 44    |          Yes |         Set |            - |
+| 4320  |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -155,23 +155,23 @@ Warning! LUT value is adjusted to account for LUT combining.
 +------------+------+---------------------+
 |  Ref Name  | Used | Functional Category |
 +------------+------+---------------------+
-| FDRE       | 4260 |        Flop & Latch |
-| LUT6       | 1955 |                 LUT |
-| LUT4       |  721 |                 LUT |
-| LUT5       |  441 |                 LUT |
-| LUT3       |  349 |                 LUT |
+| FDRE       | 4320 |        Flop & Latch |
+| LUT6       | 1968 |                 LUT |
+| LUT4       |  914 |                 LUT |
+| LUT5       |  439 |                 LUT |
+| LUT3       |  318 |                 LUT |
 | SRLC32E    |  249 |  Distributed Memory |
 | SRL16E     |  217 |  Distributed Memory |
 | MUXF7      |  175 |               MuxFx |
-| LUT2       |  166 |                 LUT |
-| CARRY4     |  165 |          CarryLogic |
+| CARRY4     |  173 |          CarryLogic |
+| LUT2       |  167 |                 LUT |
+| LUT1       |  134 |                 LUT |
 | FDCE       |  134 |        Flop & Latch |
-| LUT1       |  133 |                 LUT |
 | RAMD64E    |  128 |  Distributed Memory |
 | RAMB36E1   |   65 |        Block Memory |
 | IBUF       |   50 |                  IO |
+| FDSE       |   44 |        Flop & Latch |
 | OBUFT      |   35 |                  IO |
-| FDSE       |   34 |        Flop & Latch |
 | FDPE       |   27 |        Flop & Latch |
 | RAMD32     |   24 |  Distributed Memory |
 | RAMS64E    |   16 |  Distributed Memory |
@@ -204,8 +204,8 @@ Warning! LUT value is adjusted to account for LUT combining.
 +------------------------+------+
 |        Ref Name        | Used |
 +------------------------+------+
+| okWireOut              |    6 |
 | okWireIn               |    4 |
-| okWireOut              |    2 |
 | okCoreHarness          |    1 |
 | okCore                 |    1 |
 | okBTPipeOut            |    1 |

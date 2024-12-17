@@ -6,6 +6,9 @@
 # IP: ip/ila_0/ila_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==ila_0 || ORIG_REF_NAME==ila_0} -quiet] -quiet
 
+# IP: ip/fifo_generator_0/fifo_generator_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==fifo_generator_0 || ORIG_REF_NAME==fifo_generator_0} -quiet] -quiet
+
 # XDC: u:/Desktop/ECE437/Lab9/Lab9.gen/sources_1/ip/ila_0/ila_v6_2/constraints/ila_impl.xdc
 set_property KEEP_HIERARCHY SOFT [get_cells [split [join [get_cells -hier -filter {REF_NAME==ila_0 || ORIG_REF_NAME==ila_0} -quiet] {/inst } ]/inst ] -quiet] -quiet
 

@@ -1,8 +1,8 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
-| Date             : Mon Oct 28 06:48:09 2024
-| Host             : ECEB-4022-06 running 64-bit major release  (build 9200)
+| Date             : Wed Oct 30 08:02:09 2024
+| Host             : ECEB-4022-02 running 64-bit major release  (build 9200)
 | Command          : report_power -file JTEG_Test_File_power_routed.rpt -pb JTEG_Test_File_power_summary_routed.pb -rpx JTEG_Test_File_power_routed.rpx
 | Design           : JTEG_Test_File
 | Device           : xc7a75tfgg484-1
@@ -53,9 +53,9 @@ Table of Contents
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
 | Clocks                   |     0.008 |        7 |       --- |             --- |
-| Slice Logic              |     0.008 |    11773 |       --- |             --- |
+| Slice Logic              |     0.008 |    11772 |       --- |             --- |
 |   LUT as Logic           |     0.007 |     3979 |     47200 |            8.43 |
-|   Register               |    <0.001 |     5103 |     94400 |            5.41 |
+|   Register               |    <0.001 |     5102 |     94400 |            5.40 |
 |   CARRY4                 |    <0.001 |      298 |     15850 |            1.88 |
 |   LUT as Distributed RAM |    <0.001 |      184 |     19000 |            0.97 |
 |   LUT as Shift Register  |    <0.001 |      250 |     19000 |            1.32 |

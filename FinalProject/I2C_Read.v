@@ -15,7 +15,6 @@ module I2C_Read (
 
     output reg  [7:0]     State,
     output reg            ready,
-    output wire [7:0]    data_state_ila,
     output reg  [31:0]    data_out
 
     );
@@ -25,7 +24,6 @@ module I2C_Read (
     localparam STATE_STOP = 8'd41;    
   
     reg [7:0] data_state;
-    assign data_state_ila = data_state;
     
 
     always @(*) begin 

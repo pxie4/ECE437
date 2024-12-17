@@ -30,19 +30,6 @@ module CMV300
     output reg                  ILA_Clk_reg,
     //-----------------------------------------------------------------------
     // Default ILA Outputs
-    output wire     [7:0]       State,
-    output wire                 PC_button_ila,
-    output wire                 start_ila,
-    output wire                 ready_ila,
-    output wire     [7:0]       data_state_ila,
-    output wire     [7:0]       wr_data_ila,
-    output wire                 wr_en_ila,
-    output wire                 rd_en_ila,
-    output wire                 bt_full_ila,
-    output wire                 line_check_ila,
-    output  wire    [9:0]       line_cnt_ila,
-    output  wire    [15:0]      frame_cnt_ila,
-    output  wire    [9:0]       pixel_cnt_ila,
     //-----------------------------------------------------------------------
     // OK connetions
     input  wire     [4:0]       okUH,
@@ -52,7 +39,7 @@ module CMV300
     
     );
     // WireIn Interface
-    wire [31:0] PC_control; // bit 3 for I2C, bit 2 for PWM, bit 1 for SPI, bit 0 for IMG_FSM
+    wire [31:0] spi_pc, img_pc, i2c_pc, pwm_pc; 
     wire spi_start, img_start, i2c_start, pwm_start; // Respective start signals
     wire [31:0] spi_mode, spi_data_out, spi_data_in, spi_slave_reg; // For SPI
     // wire [31:0] num_of_frames; // For IMG_FSM actually hardcode to only 1 frame
@@ -61,7 +48,7 @@ module CMV300
     wire spi_ready, i2c_ready; // Will for Ready {spi_ready, i2c_ready}
 
     // FIFO Interface
-    wire [31:0] FIFO_data_out;
+    wire [31:0] FIFO_data_out, num_of_en;
     wire [7:0]  wr_data;
     wire write_reset, read_reset, write_enable, FIFO_read_enable, FIFO_full, FIFO_BT_BlockSize_Full, BT_Strobe;
 
@@ -101,14 +88,6 @@ module CMV300
         ILA_Clk_reg = ILA_Clk;
     end 
 
-    assign PC_button_ila = PC_control[1];
-    assign start_ila = img_start;
-    assign ready_ila = 0;
-    assign wr_data_ila = wr_data;
-    assign wr_en_ila = write_enable;
-    assign rd_en_ila = FIFO_read_enable;
-    assign bt_full_ila = FIFO_BT_BlockSize_Full;
-
     SPI SPI_1 (
         .FSM_Clk(SPI_Clk),
         .slave_reg(spi_slave_reg),
@@ -121,10 +100,9 @@ module CMV300
         .SPI_CLK(CVM300_SPI_CLK),
         .SPI_EN(CVM300_SPI_EN),
         .RES_N(CVM300_SYS_RES_N),
-
+        
         .State(),
         .ready(spi_ready),
-        .data_state_ila(),
         .data_out(spi_data_out)
     );  
 
@@ -140,35 +118,28 @@ module CMV300
         .ACK_bit(ACK_bit),
         .SCL(SCL),
         .SDA(SDA),
-        .State(),
         .ready(i2c_ready),
-        .data_state_ila(),
         .data_out(i2c_data_out)
     ); 
 
     img_fsm IMG_FSM(
-        .clk(SPI_Clk),
+        .clk(CVM300_CLK_OUT),
         .start(img_start),
         .lval(CVM300_Line_valid),
         .dval(CVM300_Data_valid),
         .data_in(CVM300_D),
-        .num_of_frames(1'b1),
 
         .wr_reset(write_reset),
         .rd_reset(read_reset),
         .wr_en(write_enable),
         .wr_data(wr_data),
-        .frame_req(CVM300_FRAME_REQ),
-        .State(),
-        .line_check_ila(line_check_ila),
-        .pixel_cnt_ila(pixel_cnt_ila),
-        .line_cnt_ila(line_cnt_ila),
-        .frame_cnt_ila(frame_cnt_ila)
+        .frame_req(CVM300_FRAME_REQ),  
+        .num_of_en(num_of_en)      
     );
 
     fifo_generator_0 FIFO(
         // .rst(rst),
-        .wr_clk(SPI_Clk),
+        .wr_clk(CVM300_CLK_OUT),
         .wr_rst(write_reset),
         .rd_clk(okClk),
         .rd_rst(read_reset),
@@ -191,24 +162,24 @@ module CMV300
 
     One_Cycle_Wire IMG_Start(
         .clk(SPI_Clk),
-        .pc_wire(PC_control[0]),
+        .pc_wire(img_pc[0]),
         .pc_cycle(img_start)
     );
 
     One_Cycle_Wire SPI_Start(
         .clk(SPI_Clk),
-        .pc_wire(PC_control[1]),
+        .pc_wire(spi_pc[0]),
         .pc_cycle(spi_start)
     );
     One_Cycle_Wire PWM_Start(
         .clk(PWM_Clk),
-        .pc_wire(PC_control[2]),
+        .pc_wire(pwm_pc[0]),
         .pc_cycle(pwm_start)
    );
 
     One_Cycle_Wire I2C_Start(
         .clk(I2C_Clk),
-        .pc_wire(PC_control[3]),
+        .pc_wire(i2c_pc[0]),
         .pc_cycle(i2c_start)
    );
     
@@ -229,13 +200,22 @@ module CMV300
         .okEH(okEH)
     );
     
-    localparam end_point = 4;
+    localparam end_point = 5;
     wire [end_point*65-1:0] okEHx;
     okWireOR # (.N(end_point)) wireOR (okEH, okEHx);
 
-    okWireIn PC_input (         .okHE(okHE), 
+    okWireIn SPI_input (         .okHE(okHE), 
                                 .ep_addr(8'h00),
-                                .ep_dataout(PC_control));
+                                .ep_dataout(spi_pc)); 
+    okWireIn I2C_input (         .okHE(okHE), 
+                                .ep_addr(8'h0C),
+                                .ep_dataout(i2c_pc));
+    okWireIn PWM_input (         .okHE(okHE), 
+                                .ep_addr(8'h0D),
+                                .ep_dataout(pwm_pc)); 
+    okWireIn IMG_input (         .okHE(okHE), 
+                                .ep_addr(8'h0E),
+                                .ep_dataout(img_pc)); 
     // SPI -------------------------------------------------------
     okWireIn SPI_Mode (         .okHE(okHE),
                                 .ep_addr(8'h01),
@@ -277,7 +257,7 @@ module CMV300
     okWireOut I2C_Data_Out (    .okHE(okHE),
                                 .okEH(okEHx[1*65 +:65]),
                                 .ep_addr(8'h21),
-                                .ep_datain(spi_data_out)); 
+                                .ep_datain(i2c_data_out)); 
     // PWM -------------------------------------------------------
     okWireIn DC_M2_EN (         .okHE(okHE), 
                                 .ep_addr(8'h09),
@@ -294,7 +274,7 @@ module CMV300
     okWireOut trigReady (       .okHE(okHE),
                                 .okEH(okEHx[2*65 +:65]),
                                 .ep_addr(8'h22),
-                                .ep_datain({spi_ready, i2c_ready}));
+                                .ep_datain({29'b0, CVM300_Data_valid, spi_ready, i2c_ready}));
 
     okBTPipeOut IMGtoPC (
         .okHE(okHE), 
@@ -306,8 +286,8 @@ module CMV300
         .ep_ready(FIFO_BT_BlockSize_Full)
     ); 
 
-    // okWireOut EmptyFull     (   .okHE(okHE),
-    //                             .okEH(okEHx[3*65 +:65]),
-    //                             .ep_addr(8'h23),
-    //                             .ep_datain({CVM300_Line_valid, CVM300_Data_valid,FIFO_empty,FIFO_BT_BlockSize_Full,FIFO_full}));
+    okWireOut EmptyFull     (   .okHE(okHE),
+                                .okEH(okEHx[4*65 +:65]),
+                                .ep_addr(8'h23),
+                                .ep_datain(num_of_en));
 endmodule

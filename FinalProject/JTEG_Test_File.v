@@ -30,28 +30,9 @@ module JTEG_Test_File(
     inout  [31:0]       okUHU,
     inout               okAA      
 );
-    // assign CVM300_Enable_LVDS = 0;
 
     wire  ILA_Clk, SPI_Clk, I2C_Clk;    
-    wire [7:0]  State;
-    wire        PC_button_ila;
-    wire [7:0]  data_state_ila;
-    wire        ready_ila;
-    wire        start_ila;
-    wire [7:0]  wr_data_ila;
-    wire        wr_en_ila;
-    wire        rd_en_ila;
-    wire        bt_full_ila;
-    wire        line_check_ila;
-    wire [9:0]  line_cnt_ila;
-    wire [15:0] frame_cnt_ila;
-    wire [9:0]  pixel_cnt_ila;
-    // wire SPI_EN = CVM300_SPI_EN;
-    // wire SPI_CLK = CVM300_SPI_CLK;
-    // wire SPI_IN = CVM300_SPI_IN;
-    // wire SPI_out = CVM300_SPI_OUT;
-
-    //Instantiate the module that we like to test
+   
     CMV300 CMV300_1 (        
         .led(led),
         .sys_clkn(sys_clkn),
@@ -80,31 +61,15 @@ module JTEG_Test_File(
         .I2C_Clk_reg(I2C_Clk),        
         .ILA_Clk_reg(ILA_Clk),
 
-        .State(State),
-        .PC_button_ila(PC_button_ila),
-        .start_ila(start_ila),
-        .ready_ila(ready_ila),
-        .data_state_ila(data_state_ila),
-        .wr_data_ila(wr_data_ila),
-        .wr_en_ila(wr_en_ila),
-        .rd_en_ila(rd_en_ila),
-        .bt_full_ila(bt_full_ila),
-        .line_check_ila(line_check_ila),
-        .line_cnt_ila(line_cnt_ila),
-        .frame_cnt_ila(frame_cnt_ila),
-        .pixel_cnt_ila(pixel_cnt_ila),
-
         .okUH(okUH),
         .okHU(okHU),
         .okUHU(okUHU),
         .okAA(okAA)
-        
         );
     
-    //Instantiate the ILA module probe0 num of bits - 22
     ila_0 ila_sample12 ( 
         .clk(ILA_Clk),
-        .probe0({pixel_cnt_ila, frame_cnt_ila, line_cnt_ila, line_check_ila, bt_full_ila, wr_en_ila, rd_en_ila, CVM300_Line_valid, CVM300_Data_valid }),                             
-        .probe1({SPI_Clk, PC_button_ila})
-        );                        
+        .probe0({I2C_Clk}),                             
+        .probe1({FSM_Clk})
+        );                  
 endmodule

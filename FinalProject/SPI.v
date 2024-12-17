@@ -15,7 +15,6 @@ module SPI (
 
     output reg  [7:0]     State,
     output reg            ready,
-    output wire [7:0]     data_state_ila,
     output reg  [31:0]    data_out
 
     );
@@ -27,7 +26,6 @@ module SPI (
 
     reg [7:0] data_state;
     reg [7:0] cnt_power;
-    assign data_state_ila = data_state;
 
     always @(*) begin 
         ready = 1'b0;         
@@ -39,7 +37,7 @@ module SPI (
     always @(posedge FSM_Clk) begin                       
         case (State)
             STATE_IDLE : begin
-                if (start && cnt_power == 40) begin
+                if (start && cnt_power == 200) begin
                     data_out <= 0;
                     State <= STATE_START;
                 end else if (start && cnt_power == 0) begin
@@ -55,7 +53,7 @@ module SPI (
                 end
             end
             STATE_POWERUP : begin
-                if (cnt_power == 40) begin
+                if (cnt_power == 200) begin
                     State <= STATE_START;
                 end else begin
                     cnt_power <= cnt_power + 1;

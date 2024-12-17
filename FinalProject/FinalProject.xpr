@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Product Version: Vivado v2022.1 (64-bit)              -->
+<!-- Product Version: Vivado v2022.2 (64-bit)              -->
 <!--                                                         -->
 <!-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="60" Path="C:/Users/xieph/OneDrive/Desktop/ECE437/FinalProject/FinalProject.xpr">
+<Project Version="7" Minor="61" Path="U:/Desktop/ECE437/FinalProject/FinalProject.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="f357c78ca88f42d88efb69b8c2f31e2a"/>
@@ -28,13 +28,13 @@
     <Option Name="SimulatorGccInstallDirVCS" Val=""/>
     <Option Name="SimulatorGccInstallDirRiviera" Val=""/>
     <Option Name="SimulatorGccInstallDirActiveHdl" Val=""/>
-    <Option Name="SimulatorVersionXsim" Val="2022.1"/>
-    <Option Name="SimulatorVersionModelSim" Val="2021.3"/>
-    <Option Name="SimulatorVersionQuesta" Val="2021.3"/>
+    <Option Name="SimulatorVersionXsim" Val="2022.2"/>
+    <Option Name="SimulatorVersionModelSim" Val="2022.2"/>
+    <Option Name="SimulatorVersionQuesta" Val="2022.2"/>
     <Option Name="SimulatorVersionXcelium" Val="21.09.002"/>
     <Option Name="SimulatorVersionVCS" Val="S-2021.09"/>
-    <Option Name="SimulatorVersionRiviera" Val="2021.04"/>
-    <Option Name="SimulatorVersionActiveHdl" Val="12.0"/>
+    <Option Name="SimulatorVersionRiviera" Val="2022.04"/>
+    <Option Name="SimulatorVersionActiveHdl" Val="13.0"/>
     <Option Name="SimulatorGccVersionXsim" Val="6.2.0"/>
     <Option Name="SimulatorGccVersionModelSim" Val="7.4.0"/>
     <Option Name="SimulatorGccVersionQuesta" Val="7.4.0"/>
@@ -52,6 +52,7 @@
     <Option Name="IPCachePermission" Val="write"/>
     <Option Name="EnableCoreContainer" Val="FALSE"/>
     <Option Name="EnableResourceEstimation" Val="FALSE"/>
+    <Option Name="SimCompileState" Val="TRUE"/>
     <Option Name="CreateRefXciForCoreContainers" Val="FALSE"/>
     <Option Name="IPUserFilesDir" Val="$PIPUSERFILESDIR"/>
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
@@ -63,13 +64,13 @@
     <Option Name="WTVcsLaunchSim" Val="0"/>
     <Option Name="WTRivieraLaunchSim" Val="0"/>
     <Option Name="WTActivehdlLaunchSim" Val="0"/>
-    <Option Name="WTXSimExportSim" Val="2"/>
-    <Option Name="WTModelSimExportSim" Val="2"/>
-    <Option Name="WTQuestaExportSim" Val="2"/>
+    <Option Name="WTXSimExportSim" Val="4"/>
+    <Option Name="WTModelSimExportSim" Val="4"/>
+    <Option Name="WTQuestaExportSim" Val="4"/>
     <Option Name="WTIesExportSim" Val="0"/>
-    <Option Name="WTVcsExportSim" Val="2"/>
-    <Option Name="WTRivieraExportSim" Val="2"/>
-    <Option Name="WTActivehdlExportSim" Val="2"/>
+    <Option Name="WTVcsExportSim" Val="4"/>
+    <Option Name="WTRivieraExportSim" Val="4"/>
+    <Option Name="WTActivehdlExportSim" Val="4"/>
     <Option Name="GenerateIPUpgradeLog" Val="TRUE"/>
     <Option Name="XSimRadix" Val="hex"/>
     <Option Name="XSimTimeUnit" Val="ns"/>
@@ -138,7 +139,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okBTPipeOut.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../../../Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okBTPipeOut.v"/>
+          <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okBTPipeOut.v"/>
           <Attr Name="ImportTime" Val="1643836294"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -147,7 +148,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okCoreHarness.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../../../Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okCoreHarness.v"/>
+          <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okCoreHarness.v"/>
           <Attr Name="ImportTime" Val="1643836294"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -156,7 +157,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okLibrary.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../../../Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okLibrary.v"/>
+          <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okLibrary.v"/>
           <Attr Name="ImportTime" Val="1643836294"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -165,7 +166,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okWireIn.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../../../Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okWireIn.v"/>
+          <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okWireIn.v"/>
           <Attr Name="ImportTime" Val="1643836294"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -174,7 +175,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okWireOut.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../../../Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okWireOut.v"/>
+          <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okWireOut.v"/>
           <Attr Name="ImportTime" Val="1643836294"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -191,7 +192,7 @@
       <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okBTPipeIn.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../../../Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okBTPipeIn.v"/>
+          <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okBTPipeIn.v"/>
           <Attr Name="ImportTime" Val="1643836294"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -201,7 +202,7 @@
       <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okPipeIn.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../../../Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okPipeIn.v"/>
+          <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okPipeIn.v"/>
           <Attr Name="ImportTime" Val="1643836294"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -211,7 +212,7 @@
       <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okPipeOut.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../../../Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okPipeOut.v"/>
+          <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okPipeOut.v"/>
           <Attr Name="ImportTime" Val="1643836294"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -221,7 +222,7 @@
       <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okRegisterBridge.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../../../Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okRegisterBridge.v"/>
+          <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okRegisterBridge.v"/>
           <Attr Name="ImportTime" Val="1643836294"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -231,7 +232,7 @@
       <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okTriggerIn.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../../../Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okTriggerIn.v"/>
+          <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okTriggerIn.v"/>
           <Attr Name="ImportTime" Val="1643836294"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -241,7 +242,7 @@
       <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okTriggerOut.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../../../Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okTriggerOut.v"/>
+          <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okTriggerOut.v"/>
           <Attr Name="ImportTime" Val="1643836294"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -251,7 +252,7 @@
       <File Path="$PSRCDIR/sources_1/imports/Vivado-2021/okLibrary.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../../../Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okLibrary.vhd"/>
+          <Attr Name="ImportPath" Val="C:/Program Files/Opal Kelly/FrontPanelUSB/FrontPanelHDL/XEM7310-A75/Vivado-2021/okLibrary.vhd"/>
           <Attr Name="ImportTime" Val="1643836294"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -294,6 +295,14 @@
     </FileSet>
     <FileSet Name="utils_1" Type="Utils" RelSrcDir="$PSRCDIR/utils_1" RelGenDir="$PGENDIR/utils_1">
       <Filter Type="Utils"/>
+      <File Path="$PSRCDIR/utils_1/imports/synth_1/JTEG_Test_File.dcp">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedInSteps" Val="synth_1"/>
+          <Attr Name="AutoDcp" Val="1"/>
+        </FileInfo>
+      </File>
       <Config>
         <Option Name="TopAutoSet" Val="TRUE"/>
       </Config>
@@ -344,7 +353,7 @@
     </Simulator>
   </Simulators>
   <Runs Version="1" Minor="19">
-    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7a75tfgg484-1" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="true" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/synth_1">
+    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7a75tfgg484-1" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="true" IncrementalCheckpoint="$PSRCDIR/utils_1/imports/synth_1/JTEG_Test_File.dcp" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design"/>
@@ -356,9 +365,7 @@
     </Run>
     <Run Id="fifo_generator_0_synth_1" Type="Ft3:Synth" SrcSet="fifo_generator_0" Part="xc7a75tfgg484-1" ConstrsSet="fifo_generator_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/fifo_generator_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/fifo_generator_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/fifo_generator_0_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -368,9 +375,7 @@
     </Run>
     <Run Id="ila_0_synth_1" Type="Ft3:Synth" SrcSet="ila_0" Part="xc7a75tfgg484-1" ConstrsSet="ila_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/ila_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/ila_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/ila_0_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -398,9 +403,7 @@
     </Run>
     <Run Id="fifo_generator_0_impl_1" Type="Ft2:EntireDesign" Part="xc7a75tfgg484-1" ConstrsSet="fifo_generator_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="fifo_generator_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/fifo_generator_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/fifo_generator_0_impl_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -417,9 +420,7 @@
     </Run>
     <Run Id="ila_0_impl_1" Type="Ft2:EntireDesign" Part="xc7a75tfgg484-1" ConstrsSet="ila_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="ila_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/ila_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/ila_0_impl_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
